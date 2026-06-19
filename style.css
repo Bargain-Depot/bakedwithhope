@@ -399,109 +399,121 @@ h3 {
 }
 
 .card {
-  transition: 0.2s ease;
+  transition: 0.25s ease;
 }
 
 .card:hover {
-
   transform: translateY(-10px) rotate(-2deg);
-
   box-shadow: 12px 12px 0 var(--medium-pink);
-
 }
 
 .emoji {
-
   height: 145px;
-
   background: var(--pale-pink);
-
   border: 3px solid var(--soft-pink);
-
   border-radius: 24px;
-
   display: flex;
-
   align-items: center;
-
   justify-content: center;
-
-  font-size: 4rem;
-
+  font-size: 3.8rem;
   margin-bottom: 20px;
-
   position: relative;
-
   overflow: hidden;
-
-  transition: .25s ease;
-
 }
 
+/* tiny sparkle */
 .emoji::after {
-
-  content: "";
-
-  position: absolute;
-
-  width: 55px;
-
-  height: 55px;
-
-  background: var(--pale-pink);
-
-  border-radius: 50%;
-
-  top: 18px;
-
-  right: -60px;
-
-  transition: .25s ease;
-
-  z-index: 3;
-
-}
-
-.emoji::before {
-
   content: "✦";
-
   position: absolute;
-
   top: 18px;
-
-  right: 18px;
-
-  opacity: 0;
-
-  transform: scale(.3);
-
-  transition: .25s ease;
-
+  right: 20px;
   color: var(--hot-pink);
-
-  z-index: 4;
-
-}
-
-.card:hover .emoji {
-
-  transform: translateY(-6px);
-
+  font-size: 1.5rem;
+  opacity: 0;
+  transform: scale(0.3) rotate(0deg);
+  transition: 0.25s ease;
 }
 
 .card:hover .emoji::after {
-
-  right: -12px;
-
+  opacity: 1;
+  transform: scale(1.3) rotate(20deg);
 }
 
-.card:hover .emoji::before {
+/* Cookies & Cream */
+.card:nth-child(1):hover .emoji {
+  animation: cookieBounce 0.5s ease infinite;
+}
 
-  opacity: 1;
+/* Strawberry Crunch */
+.card:nth-child(2):hover .emoji {
+  animation: strawberryWiggle 0.45s ease infinite;
+  background: #ffe1ec;
+}
 
-  transform: scale(1.2);
+/* Biscoff */
+.card:nth-child(3):hover .emoji {
+  animation: biscoffGlow 0.8s ease infinite alternate;
+  background: #f6d2a6;
+}
 
+/* Red Velvet */
+.card:nth-child(4):hover .emoji {
+  animation: heartBeat 0.55s ease infinite;
+  background: #ffd6dd;
+}
+
+@keyframes cookieBounce {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+
+  50% {
+    transform: translateY(-8px) rotate(-4deg);
+  }
+}
+
+@keyframes strawberryWiggle {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+
+  25% {
+    transform: rotate(-5deg);
+  }
+
+  50% {
+    transform: rotate(5deg);
+  }
+
+  75% {
+    transform: rotate(-3deg);
+  }
+}
+
+@keyframes biscoffGlow {
+  0% {
+    transform: scale(1);
+    box-shadow: inset 0 0 0 rgba(200, 93, 143, 0);
+  }
+
+  100% {
+    transform: scale(1.04);
+    box-shadow: inset 0 0 35px rgba(200, 93, 143, 0.25);
+  }
+}
+
+@keyframes heartBeat {
+  0%, 100% {
+    transform: scale(1);
+  }
+
+  35% {
+    transform: scale(1.12);
+  }
+
+  60% {
+    transform: scale(0.96);
+  }
 }
 
 .feature-card {
