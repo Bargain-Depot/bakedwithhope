@@ -403,20 +403,105 @@ h3 {
 }
 
 .card:hover {
-  transform: translateY(-8px) rotate(-1deg);
-  box-shadow: 10px 10px 0 var(--medium-pink);
+
+  transform: translateY(-10px) rotate(-2deg);
+
+  box-shadow: 12px 12px 0 var(--medium-pink);
+
 }
 
 .emoji {
+
   height: 145px;
+
   background: var(--pale-pink);
+
   border: 3px solid var(--soft-pink);
+
   border-radius: 24px;
+
   display: flex;
+
   align-items: center;
+
   justify-content: center;
-  font-size: 3.8rem;
+
+  font-size: 4rem;
+
   margin-bottom: 20px;
+
+  position: relative;
+
+  overflow: hidden;
+
+  transition: .25s ease;
+
+}
+
+.emoji::after {
+
+  content: "";
+
+  position: absolute;
+
+  width: 55px;
+
+  height: 55px;
+
+  background: var(--pale-pink);
+
+  border-radius: 50%;
+
+  top: 18px;
+
+  right: -60px;
+
+  transition: .25s ease;
+
+  z-index: 3;
+
+}
+
+.emoji::before {
+
+  content: "✦";
+
+  position: absolute;
+
+  top: 18px;
+
+  right: 18px;
+
+  opacity: 0;
+
+  transform: scale(.3);
+
+  transition: .25s ease;
+
+  color: var(--hot-pink);
+
+  z-index: 4;
+
+}
+
+.card:hover .emoji {
+
+  transform: translateY(-6px);
+
+}
+
+.card:hover .emoji::after {
+
+  right: -12px;
+
+}
+
+.card:hover .emoji::before {
+
+  opacity: 1;
+
+  transform: scale(1.2);
+
 }
 
 .feature-card {
