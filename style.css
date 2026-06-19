@@ -375,9 +375,13 @@ h3 {
   font-size: 1.1rem;
 }
 
-.cards,
+.cards {
+  grid-template-columns: repeat(4, 1fr);
+  gap: 25px;
+  margin-top: 35px;
+}
+
 .hope-cards {
-  display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 25px;
   margin-top: 35px;
