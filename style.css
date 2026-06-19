@@ -258,3 +258,158 @@ footer h3 {
     min-height: 80vh;
   }
 }
+
+.hero {
+  min-height: 90vh;
+  padding: 70px 24px;
+  background: #f5eadf;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-card {
+  max-width: 1150px;
+  width: 100%;
+  background: #fffaf3;
+  border-radius: 45px;
+  padding: 55px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: center;
+  box-shadow: 0 25px 60px rgba(90, 55, 40, 0.12);
+  overflow: hidden;
+}
+
+.hero h1 {
+  font-size: clamp(3.5rem, 8vw, 7rem);
+  line-height: 0.9;
+  color: #2b120f;
+  text-transform: uppercase;
+  letter-spacing: -2px;
+}
+
+.hero h2 {
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  color: #2b120f;
+  text-transform: uppercase;
+  margin: 20px 0;
+}
+
+.hero-image-wrap {
+  position: relative;
+  background: #ffe45c;
+  border-radius: 40px;
+  height: 360px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.hero-image-wrap img {
+  width: 110%;
+  max-width: 520px;
+  transform: translateY(-35px) rotate(-2deg);
+  filter: drop-shadow(0 25px 25px rgba(0,0,0,0.2));
+  animation: floatDessert 3s ease-in-out infinite;
+}
+
+@keyframes floatDessert {
+  0%, 100% {
+    transform: translateY(-35px) rotate(-2deg);
+  }
+  50% {
+    transform: translateY(-55px) rotate(2deg);
+  }
+}
+
+.sticker {
+  position: absolute;
+  background: #ff8d3a;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-weight: 900;
+  text-transform: uppercase;
+  transform: rotate(-8deg);
+}
+
+.sticker.one {
+  top: 30px;
+  left: 25px;
+  background: #36a56f;
+}
+
+.sticker.two {
+  top: 65px;
+  right: 20px;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 18px;
+  margin-top: 30px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  position: relative;
+  padding: 15px 26px;
+  border-radius: 999px;
+  border: 3px solid #2b120f;
+  background: #ffe45c;
+  color: #2b120f;
+  text-decoration: none;
+  font-weight: 900;
+  text-transform: uppercase;
+  box-shadow: 5px 5px 0 #2b120f;
+  transition: 0.2s ease;
+}
+
+.btn span {
+  display: inline-block;
+}
+
+.btn:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 8px 8px 0 #2b120f;
+}
+
+.btn:hover span {
+  animation: wiggleText 0.35s ease infinite;
+}
+
+.second-btn {
+  background: #fffaf3;
+}
+
+@keyframes wiggleText {
+  0%, 100% {
+    transform: rotate(0deg) translateY(0);
+  }
+  25% {
+    transform: rotate(-4deg) translateY(-2px);
+  }
+  50% {
+    transform: rotate(4deg) translateY(2px);
+  }
+  75% {
+    transform: rotate(-2deg) translateY(-1px);
+  }
+}
+
+@media (max-width: 850px) {
+  .hero-card {
+    grid-template-columns: 1fr;
+    padding: 35px 25px;
+  }
+
+  .hero-image-wrap {
+    height: 280px;
+  }
+
+  .hero h1 {
+    font-size: 3.5rem;
+  }
+}
