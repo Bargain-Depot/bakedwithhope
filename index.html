@@ -126,16 +126,49 @@
       and when you need your order.
     </p>
 
-    <form>
-      <input type="text" placeholder="Your Name">
-      <input type="email" placeholder="Email Address">
-      <input type="tel" placeholder="Phone Number">
-      <input type="text" placeholder="Date Needed">
-      <textarea placeholder="Tell us about your order"></textarea>
-      <button type="submit">Send Request</button>
-    </form>
+<form id="orderForm">
+  <input type="text" id="name" placeholder="Your Name" required>
+  <input type="tel" id="phone" placeholder="Phone Number" required>
+  <input type="email" id="email" placeholder="Email Address">
+
+  <select id="flavor" required>
+    <option value="">Choose Flavor</option>
+    <option>Cookies & Cream</option>
+    <option>Strawberry Crunch</option>
+    <option>Biscoff</option>
+    <option>Red Velvet</option>
+  </select>
+
+  <select id="box" required>
+    <option value="">Choose Box</option>
+    <option value="Single Mini|1|4">Single Mini (1) — $4</option>
+    <option value="Duo Box|2|7">Duo Box (2) — $7</option>
+    <option value="Signature Box|4|13">Signature Box (4) — $13</option>
+    <option value="Family Box|6|18">Family Box (6) — $18</option>
+    <option value="Celebration Box|12|34">Celebration Box (12) — $34</option>
+  </select>
+
+  <select id="payment" required>
+    <option value="">Choose Payment Method</option>
+    <option>Venmo</option>
+    <option>Cash App</option>
+    <option>Zelle</option>
+    <option>Cash</option>
+  </select>
+
+  <input type="text" id="pickupDate" placeholder="Pickup Date / Needed By" required>
+
+  <textarea id="notes" placeholder="Notes, color requests, or special message"></textarea>
+
+  <div class="total-box">
+    <h3>Total: <span id="totalDisplay">$0</span></h3>
+    <p id="paymentInstructions">Choose a payment method to see instructions.</p>
   </div>
-</section>
+
+  <button type="submit">Send Order</button>
+
+  <p id="formMessage"></p>
+</form>
 
 <section id="hope-wall" class="section">
   <p class="mini-label center">Hope Wall</p>
@@ -153,5 +186,88 @@
   <p>Where every dessert is made with love & purpose.</p>
 </footer>
 
+<script>
+const scriptURL = "https://script.google.com/macros/s/AKfycbwbHvwYbPx2UsZY6RF9TPCA3aw_F4wMFyxWsbZqywRoA1b2B-nO2RMo23vCM3XjBDj2AQ/exec";
+
+const boxSelect = document.getElementById("box");
+const paymentSelect = document.getElementById("payment");
+const totalDisplay = document.getElementById("totalDisplay");
+const paymentInstructions = document.getElementById("paymentInstructions");
+const formMessage = document.getElementById("formMessage");
+
+let currentTotal = 0;
+let currentQuantity = 0;
+let currentBox = "";
+
+boxSelect.addEventListener("change", updateTotal);
+paymentSelect.addEventListener("change", updatePayment);
+
+function updateTotal() {
+  if (!boxSelect.value) {
+    currentTotal = 0;
+    currentQuantity = 0;
+    currentBox = "";
+    totalDisplay.textContent = "$0";
+    return;
+  }
+
+  const parts = boxSelect.value.split("|");
+  currentBox = parts[0];
+  currentQuantity = parts[1];
+  currentTotal = parts[2];
+
+  totalDisplay.textContent = "$" + currentTotal;
+}
+
+function updatePayment() {
+  const payment = paymentSelect.value;
+
+  if (payment === "Venmo") {
+    paymentInstructions.textContent = "Send payment to Venmo: @ttina003";
+  } else if (payment === "Cash App") {
+    paymentInstructions.textContent = "Send payment to Cash App: $ttina003";
+  } else if (payment === "Zelle") {
+    paymentInstructions.textContent = "Send payment through Zelle: 617-888-3636";
+  } else if (payment === "Cash") {
+    paymentInstructions.textContent = "Cash accepted at pickup/delivery.";
+  } else {
+    paymentInstructions.textContent = "Choose a payment method to see instructions.";
+  }
+}
+
+document.getElementById("orderForm").addEventListener("submit", async function(e) {
+  e.preventDefault();
+
+  const orderData = {
+    name: document.getElementById("name").value,
+    phone: document.getElementById("phone").value,
+    email: document.getElementById("email").value,
+    flavor: document.getElementById("flavor").value,
+    box: currentBox,
+    quantity: currentQuantity,
+    total: currentTotal,
+    payment: paymentSelect.value,
+    pickupDate: document.getElementById("pickupDate").value,
+    notes: document.getElementById("notes").value
+  };
+
+  formMessage.textContent = "Sending your order...";
+
+  try {
+    await fetch(scriptURL, {
+      method: "POST",
+      body: JSON.stringify(orderData)
+    });
+
+    formMessage.textContent = "Order sent! Please complete payment using the instructions above.";
+    document.getElementById("orderForm").reset();
+    totalDisplay.textContent = "$0";
+    paymentInstructions.textContent = "Choose a payment method to see instructions.";
+  } catch (error) {
+    formMessage.textContent = "Something went wrong. Please try again or contact us directly.";
+  }
+});
+</script>
+    
 </body>
 </html>
