@@ -189,13 +189,14 @@
       <input type="tel" id="phone" placeholder="Phone Number" required>
       <input type="email" id="email" placeholder="Email Address">
 
-      <select id="flavor" required>
-        <option value="">Choose Flavor</option>
-        <option>Cookies & Cream</option>
-        <option>Strawberry Crunch</option>
-        <option>Biscoff</option>
-        <option>Fruity Pebbles</option>
-      </select>
+<div class="flavor-checks">
+  <p>Choose Flavor(s)</p>
+
+  <label><input type="checkbox" name="flavor" value="Cookies & Cream"> Cookies & Cream</label>
+  <label><input type="checkbox" name="flavor" value="Strawberry Crunch"> Strawberry Crunch</label>
+  <label><input type="checkbox" name="flavor" value="Biscoff"> Biscoff</label>
+  <label><input type="checkbox" name="flavor" value="Fruity Pebbles"> Fruity Pebbles</label>
+</div>
 
       <select id="box" required>
         <option value="">Choose Box</option>
