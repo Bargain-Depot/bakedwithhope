@@ -503,155 +503,175 @@ h3 {
   }
 }
 
-/* MENU CARDS */
+/* CAKES OF THE WEEK */
 
-.cards,
-.hope-cards {
+.cakes-section {
+  max-width: 1180px;
+}
+
+.flavor-menu {
   display: grid;
-  gap: 25px;
-  margin-top: 35px;
+  gap: 60px;
+  margin-top: 60px;
 }
 
-.cards {
-  grid-template-columns: repeat(4, 1fr);
-}
-
-.hope-cards {
-  grid-template-columns: repeat(3, 1fr);
-}
-
-.card,
-.hope-card,
-.order-box,
-.feature-card {
-  background: var(--cream);
+.flavor-item {
+  min-height: 330px;
+  background: var(--paper);
   border: 4px solid var(--soft-pink);
-  border-radius: 28px;
-  padding: 30px;
-  box-shadow: 7px 7px 0 var(--soft-pink);
+  border-radius: 42px;
+  padding: 35px 45px;
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 35px;
+  align-items: center;
+  box-shadow: 10px 10px 0 var(--soft-pink);
+  position: relative;
+  overflow: visible;
+  transition: 0.3s ease;
 }
 
-.card {
-  transition: 0.25s ease;
+.flavor-item:nth-child(even) {
+  grid-template-columns: 1.1fr 0.9fr;
 }
 
-.card:hover {
-  transform: translateY(-10px) rotate(-2deg);
-  box-shadow: 12px 12px 0 var(--medium-pink);
+.flavor-item:nth-child(even) .flavor-image {
+  order: 2;
 }
 
-.emoji {
-  height: 145px;
-  background: var(--pale-pink);
-  border: 3px solid var(--soft-pink);
-  border-radius: 24px;
+.flavor-image {
+  height: 300px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 3.8rem;
-  margin-bottom: 20px;
   position: relative;
-  overflow: hidden;
 }
 
-.emoji::after {
-  content: "✦";
+.flavor-image::before {
+  content: "";
+  width: 250px;
+  height: 250px;
+  background: var(--pale-pink);
+  border-radius: 50%;
   position: absolute;
-  top: 18px;
-  right: 20px;
-  color: var(--hot-pink);
+  z-index: 1;
+  transition: 0.3s ease;
+}
+
+.flavor-image img {
+  max-width: 115%;
+  max-height: 340px;
+  object-fit: contain;
+  position: relative;
+  z-index: 2;
+  filter: drop-shadow(0 24px 18px rgba(59, 29, 24, 0.22));
+  transform: rotate(-4deg);
+  transition: 0.3s ease;
+}
+
+.flavor-info span {
+  display: inline-block;
+  font-family: 'Caveat', cursive;
   font-size: 1.5rem;
-  opacity: 0;
-  transform: scale(0.3) rotate(0deg);
-  transition: 0.25s ease;
+  color: var(--hot-pink);
+  background: var(--pale-pink);
+  border: 3px solid var(--soft-pink);
+  border-radius: 999px;
+  padding: 6px 16px;
+  margin-bottom: 18px;
 }
 
-.card:hover .emoji::after {
-  opacity: 1;
-  transform: scale(1.3) rotate(20deg);
+.flavor-info h3 {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(2.3rem, 5vw, 4rem);
+  line-height: 1;
+  color: var(--brown);
 }
 
-.card:nth-child(1):hover .emoji {
-  animation: cookieBounce 0.5s ease infinite;
+.flavor-info p {
+  margin-top: 18px;
+  font-size: 1.15rem;
+  line-height: 1.8;
+  max-width: 520px;
 }
 
-.card:nth-child(2):hover .emoji {
-  animation: strawberryWiggle 0.45s ease infinite;
-  background: #ffe1ec;
+.flavor-item::after {
+  content: "♡";
+  position: absolute;
+  right: 28px;
+  bottom: 18px;
+  font-size: 3rem;
+  color: rgba(200, 93, 143, 0.25);
+  transition: 0.3s ease;
 }
 
-.card:nth-child(3):hover .emoji {
-  animation: biscoffGlow 0.8s ease infinite alternate;
-  background: #f6d2a6;
+.flavor-item:hover {
+  transform: translateY(-10px) rotate(-1deg);
+  box-shadow: 16px 16px 0 var(--medium-pink);
 }
 
-.card:nth-child(4):hover .emoji {
-  animation: heartBeat 0.55s ease infinite;
-  background: #ffd6dd;
+.flavor-item:hover .flavor-image img {
+  transform: translateY(-18px) scale(1.08) rotate(3deg);
 }
 
-@keyframes cookieBounce {
-  0%, 100% {
-    transform: translateY(0) rotate(0deg);
-  }
-
-  50% {
-    transform: translateY(-8px) rotate(-4deg);
-  }
+.flavor-item:hover .flavor-image::before {
+  transform: scale(1.12);
+  background: var(--soft-pink);
 }
 
-@keyframes strawberryWiggle {
-  0%, 100% {
-    transform: rotate(0deg);
-  }
-
-  25% {
-    transform: rotate(-5deg);
-  }
-
-  50% {
-    transform: rotate(5deg);
-  }
-
-  75% {
-    transform: rotate(-3deg);
-  }
+.flavor-item:hover::after {
+  transform: scale(1.3) rotate(12deg);
+  color: var(--hot-pink);
 }
 
-@keyframes biscoffGlow {
-  0% {
-    transform: scale(1);
-    box-shadow: inset 0 0 0 rgba(200, 93, 143, 0);
-  }
-
-  100% {
-    transform: scale(1.04);
-    box-shadow: inset 0 0 35px rgba(200, 93, 143, 0.25);
-  }
+.cookies {
+  background: #fff9f1;
 }
 
-@keyframes heartBeat {
-  0%, 100% {
-    transform: scale(1);
-  }
+.strawberry {
+  background: #fff2f7;
+}
 
-  35% {
-    transform: scale(1.12);
-  }
+.biscoff {
+  background: #fff4e4;
+}
 
-  60% {
-    transform: scale(0.96);
-  }
+.fruity {
+  background: #fff6fb;
+}
+
+.flavor-item.fruity:hover {
+  background: linear-gradient(
+    135deg,
+    #ffe4ec,
+    #fff6d6,
+    #e5f7ff,
+    #f2e4ff
+  );
+}
+
+.flavor-item.fruity:hover .flavor-image::before {
+  background: linear-gradient(
+    135deg,
+    #ffbdd3,
+    #ffe98f,
+    #aee7ff,
+    #d9b8ff
+  );
 }
 
 /* FEATURE SECTION */
 
 .feature-card {
+  background: var(--pale-pink);
+  border: 4px solid var(--soft-pink);
+  border-radius: 28px;
+  padding: 30px;
+  box-shadow: 7px 7px 0 var(--soft-pink);
   display: grid;
   grid-template-columns: 1.2fr 1fr;
   gap: 30px;
   align-items: center;
-  background: var(--pale-pink);
 }
 
 .feature-list {
@@ -675,6 +695,10 @@ h3 {
 
 .order-box {
   background: var(--white);
+  border: 4px solid var(--soft-pink);
+  border-radius: 28px;
+  padding: 30px;
+  box-shadow: 7px 7px 0 var(--soft-pink);
 }
 
 form {
@@ -742,9 +766,20 @@ button:hover {
 
 /* HOPE WALL */
 
+.hope-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+  margin-top: 35px;
+}
+
 .hope-card {
-  font-weight: 800;
   background: var(--pale-pink);
+  border: 4px solid var(--soft-pink);
+  border-radius: 28px;
+  padding: 30px;
+  box-shadow: 7px 7px 0 var(--soft-pink);
+  font-weight: 800;
 }
 
 /* FOOTER */
@@ -792,12 +827,6 @@ footer h3 {
     transform: translateX(-50%) scale(0.8);
   }
 
-  .cards,
-  .hope-cards,
-  .feature-card {
-    grid-template-columns: 1fr;
-  }
-
   .story-card {
     padding: 38px 28px;
   }
@@ -805,6 +834,33 @@ footer h3 {
   .story-content p {
     font-size: 1rem;
     line-height: 1.8;
+  }
+
+  .flavor-item,
+  .flavor-item:nth-child(even) {
+    grid-template-columns: 1fr;
+    padding: 30px 24px;
+  }
+
+  .flavor-item:nth-child(even) .flavor-image {
+    order: 0;
+  }
+
+  .flavor-image {
+    height: 230px;
+  }
+
+  .flavor-image img {
+    max-height: 260px;
+  }
+
+  .flavor-info h3 {
+    font-size: 2.5rem;
+  }
+
+  .feature-card,
+  .hope-cards {
+    grid-template-columns: 1fr;
   }
 
   h1 {
