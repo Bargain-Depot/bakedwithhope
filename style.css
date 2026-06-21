@@ -742,9 +742,10 @@ footer h3 {
     height: 320px;
   }
 
-  .floating-cake {
-    max-height: 285px;
-  }
+.floating-cake {
+  width: 240px;
+  max-width: 85%;
+}
 
   .story-card {
     padding: 38px 28px;
