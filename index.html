@@ -303,7 +303,9 @@ document.getElementById("orderForm").addEventListener("submit", async function(e
     name: document.getElementById("name").value,
     phone: document.getElementById("phone").value,
     email: document.getElementById("email").value,
-    flavor: document.getElementById("flavor").value,
+    flavor: Array.from(document.querySelectorAll('input[name="flavor"]:checked'))
+  .map(input => input.value)
+  .join(", "),
     box: currentBox,
     quantity: currentQuantity,
     total: currentTotal,
