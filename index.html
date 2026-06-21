@@ -3,15 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <title>Baked with Hope | Mini Cakes Made with Love</title>
+
   <link rel="stylesheet" href="style.css" />
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Dela+Gothic+One&family=DM+Serif+Display&family=Nanum+Myeongjo:wght@400;700;800&display=swap" rel="stylesheet">
-  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Dela+Gothic+One&family=DM+Serif+Display&family=Nanum+Myeongjo:wght@400;700;800&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -22,7 +21,7 @@
 
     <div class="nav-links">
       <a href="#story">Story</a>
-      <a href="#cakes">Mini Cakes</a>
+      <a href="#cakes">Cakes of the Week</a>
       <a href="#orders">Order</a>
       <a href="#hope-wall">Hope Wall</a>
     </div>
@@ -43,7 +42,7 @@
       </p>
 
       <div class="hero-buttons">
-        <a href="#cakes" class="btn"><span>View Mini Cakes</span></a>
+        <a href="#cakes" class="btn"><span>View Cakes</span></a>
         <a href="#story" class="btn white-btn"><span>My Story</span></a>
       </div>
     </div>
@@ -68,17 +67,15 @@
 </section>
 
 <section id="story" class="section story-section">
-
   <div class="story-card">
 
     <div class="story-badge">
-      ♡ Our Story
+      A letter from Baked with Hope ♡
     </div>
 
     <h2>More than a mini cake.</h2>
 
     <div class="story-content">
-
       <p>
         Baking has been something I always enjoyed doing just for fun, but through personal experiences like my dad being deported and everything happening around us in the world today, I started thinking about how I could turn something I enjoy into something with purpose.
       </p>
@@ -90,50 +87,84 @@
       <p>
         Thank you so much for all your love and support, it truly means the world to me.
       </p>
-
     </div>
 
     <div class="story-footer">
-
       <span class="story-heart">♡</span>
-
       <p>Made with love & purpose.</p>
-
     </div>
 
   </div>
-
 </section>
 
-<section id="cakes" class="section">
-  <p class="mini-label center">Mini Cake Menu</p>
-  <h2 class="center">Tiny cakes, big smiles.</h2>
+<section id="cakes" class="section cakes-section">
+  <p class="mini-label center">Cakes of the Week</p>
+  <h2 class="center">Fresh flavors, made with hope.</h2>
 
- <div class="cards">
-  <div class="card">
-    <div class="emoji">🍪</div>
-    <h3>Cookies & Cream</h3>
-    <p>Sweet vanilla-style mini cake with a cookies and cream twist.</p>
-  </div>
+  <div class="flavor-menu">
 
-  <div class="card">
-    <div class="emoji">🍓</div>
-    <h3>Strawberry Crunch</h3>
-    <p>Soft strawberry-inspired mini cake with a sweet crunchy topping.</p>
-  </div>
+    <div class="flavor-item cookies">
+      <div class="flavor-image">
+        <img src="cookies-cream.png" alt="Cookies and Cream mini cake">
+      </div>
 
-  <div class="card">
-    <div class="emoji">🍯</div>
-    <h3>Biscoff</h3>
-    <p>A cozy mini cake with warm cookie butter flavor in every bite.</p>
-  </div>
+      <div class="flavor-info">
+        <span>Signature Flavor</span>
+        <h3>Cookies & Cream</h3>
+        <p>
+          A sweet mini cake with cookies and cream flavor, soft layers,
+          and a playful crunch.
+        </p>
+      </div>
+    </div>
 
-  <div class="card">
-    <div class="emoji">❤️</div>
-    <h3>Red Velvet</h3>
-    <p>A classic mini cake with a rich, smooth, and sweet red velvet flavor.</p>
+    <div class="flavor-item strawberry">
+      <div class="flavor-image">
+        <img src="strawberry-crunch.png" alt="Strawberry Crunch mini cake">
+      </div>
+
+      <div class="flavor-info">
+        <span>Fan Favorite</span>
+        <h3>Strawberry Crunch</h3>
+        <p>
+          A strawberry-inspired mini cake finished with a nostalgic
+          sweet crunch topping.
+        </p>
+      </div>
+    </div>
+
+    <div class="flavor-item biscoff">
+      <div class="flavor-image">
+        <img src="biscoff.png" alt="Biscoff mini cake">
+      </div>
+
+      <div class="flavor-info">
+        <span>Cozy Pick</span>
+        <h3>Biscoff</h3>
+        <p>
+          Warm cookie butter flavor with a cozy, caramelized finish
+          in every bite.
+        </p>
+      </div>
+    </div>
+
+    <div class="flavor-item fruity">
+      <div class="flavor-image">
+        <img src="fruity-pebbles.png" alt="Fruity Pebbles mini cake">
+      </div>
+
+      <div class="flavor-info">
+        <span>Colorful Favorite</span>
+        <h3>Fruity Pebbles</h3>
+        <p>
+          A playful mini cake topped with Fruity Pebbles cereal for a sweet,
+          colorful, nostalgic bite.
+        </p>
+      </div>
+    </div>
+
   </div>
-</div>
+</section>
 
 <section class="section feature-section">
   <div class="feature-card">
@@ -160,49 +191,51 @@
       and when you need your order.
     </p>
 
-<form id="orderForm">
-  <input type="text" id="name" placeholder="Your Name" required>
-  <input type="tel" id="phone" placeholder="Phone Number" required>
-  <input type="email" id="email" placeholder="Email Address">
+    <form id="orderForm">
+      <input type="text" id="name" placeholder="Your Name" required>
+      <input type="tel" id="phone" placeholder="Phone Number" required>
+      <input type="email" id="email" placeholder="Email Address">
 
-  <select id="flavor" required>
-    <option value="">Choose Flavor</option>
-    <option>Cookies & Cream</option>
-    <option>Strawberry Crunch</option>
-    <option>Biscoff</option>
-    <option>Red Velvet</option>
-  </select>
+      <select id="flavor" required>
+        <option value="">Choose Flavor</option>
+        <option>Cookies & Cream</option>
+        <option>Strawberry Crunch</option>
+        <option>Biscoff</option>
+        <option>Fruity Pebbles</option>
+      </select>
 
-  <select id="box" required>
-    <option value="">Choose Box</option>
-    <option value="Single Mini|1|4">Single Mini (1) — $4</option>
-    <option value="Duo Box|2|7">Duo Box (2) — $7</option>
-    <option value="Signature Box|4|13">Signature Box (4) — $13</option>
-    <option value="Family Box|6|18">Family Box (6) — $18</option>
-    <option value="Celebration Box|12|34">Celebration Box (12) — $34</option>
-  </select>
+      <select id="box" required>
+        <option value="">Choose Box</option>
+        <option value="Single Mini|1|4">Single Mini (1) — $4</option>
+        <option value="Duo Box|2|7">Duo Box (2) — $7</option>
+        <option value="Signature Box|4|13">Signature Box (4) — $13</option>
+        <option value="Family Box|6|18">Family Box (6) — $18</option>
+        <option value="Celebration Box|12|34">Celebration Box (12) — $34</option>
+      </select>
 
-  <select id="payment" required>
-    <option value="">Choose Payment Method</option>
-    <option>Venmo</option>
-    <option>Cash App</option>
-    <option>Zelle</option>
-    <option>Cash</option>
-  </select>
+      <select id="payment" required>
+        <option value="">Choose Payment Method</option>
+        <option>Venmo</option>
+        <option>Cash App</option>
+        <option>Zelle</option>
+        <option>Cash</option>
+      </select>
 
-  <input type="text" id="pickupDate" placeholder="Pickup Date / Needed By" required>
+      <input type="text" id="pickupDate" placeholder="Pickup Date / Needed By" required>
 
-  <textarea id="notes" placeholder="Notes, color requests, or special message"></textarea>
+      <textarea id="notes" placeholder="Notes, color requests, or special message"></textarea>
 
-  <div class="total-box">
-    <h3>Total: <span id="totalDisplay">$0</span></h3>
-    <p id="paymentInstructions">Choose a payment method to see instructions.</p>
+      <div class="total-box">
+        <h3>Total: <span id="totalDisplay">$0</span></h3>
+        <p id="paymentInstructions">Choose a payment method to see instructions.</p>
+      </div>
+
+      <button type="submit">Send Order</button>
+
+      <p id="formMessage"></p>
+    </form>
   </div>
-
-  <button type="submit">Send Order</button>
-
-  <p id="formMessage"></p>
-</form>
+</section>
 
 <section id="hope-wall" class="section">
   <p class="mini-label center">Hope Wall</p>
@@ -302,6 +335,6 @@ document.getElementById("orderForm").addEventListener("submit", async function(e
   }
 });
 </script>
-    
+
 </body>
 </html>
