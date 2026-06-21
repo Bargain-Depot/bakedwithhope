@@ -785,3 +785,28 @@ footer h3 {
     font-size: 3.8rem;
   }
 }
+
+.flavor-checks {
+  background: var(--cream);
+  border: 3px solid var(--soft-pink);
+  border-radius: 16px;
+  padding: 15px;
+  display: grid;
+  gap: 10px;
+}
+
+.flavor-checks p {
+  font-weight: 900;
+  color: var(--hot-pink);
+}
+
+.flavor-checks label {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  font-weight: 800;
+}
+
+.flavor-checks input {
+  width: auto;
+}
