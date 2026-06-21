@@ -20,7 +20,7 @@ html {
 }
 
 body {
-  font-family: Arial, sans-serif;
+  font-family:'Nanum Myeongjo',serif;
   color: var(--brown);
   line-height: 1.6;
   background:
@@ -126,6 +126,7 @@ h1 {
 }
 
 h2 {
+  font-family:'DM Serif Display',serif;
   font-size: clamp(2rem, 5vw, 3.6rem);
   line-height: 1;
   color: var(--hot-pink);
@@ -671,4 +672,29 @@ select {
 #formMessage {
   font-weight: 900;
   color: var(--hot-pink);
+}
+
+h1{
+  font-family:'Dela Gothic One',cursive;
+}
+
+.logo{
+  font-family:'DM Serif Display',serif;
+}
+
+.mini-label{
+  font-family:'Caveat',cursive;
+
+  font-size:1.4rem;
+
+  letter-spacing:1px;
+}
+
+.sticker{
+  font-family:'Caveat',cursive;
+}
+
+button,
+.btn{
+  font-family:'DM Serif Display',serif;
 }
