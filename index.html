@@ -238,49 +238,62 @@
     </p>
 
     <form id="orderForm">
-      <input type="text" id="name" placeholder="Your Name" required>
-      <input type="tel" id="phone" placeholder="Phone Number" required>
-      <input type="email" id="email" placeholder="Email Address">
+  <input type="text" id="name" placeholder="Your Name" required>
+  <input type="tel" id="phone" placeholder="Phone Number" required>
+  <input type="email" id="email" placeholder="Email Address">
 
-<div class="flavor-checks">
-  <p>Choose Flavor(s)</p>
+  <div class="flavor-checks">
+    <p>Choose Flavor(s)</p>
 
-  <label><input type="checkbox" name="flavor" value="Cookies & Cream"> Cookies & Cream</label>
-  <label><input type="checkbox" name="flavor" value="Strawberry Crunch"> Strawberry Crunch</label>
-  <label><input type="checkbox" name="flavor" value="Biscoff"> Biscoff</label>
-  <label><input type="checkbox" name="flavor" value="Fruity Pebbles"> Fruity Pebbles</label>
-</div>
+    <label><input type="checkbox" name="flavor" value="Cookies & Cream"> Cookies & Cream</label>
+    <label><input type="checkbox" name="flavor" value="Strawberry Crunch"> Strawberry Crunch</label>
+    <label><input type="checkbox" name="flavor" value="Biscoff"> Biscoff</label>
+    <label><input type="checkbox" name="flavor" value="Fruity Pebbles"> Fruity Pebbles</label>
 
-      <select id="box" required>
-        <option value="">Choose Box</option>
-        <option value="Single Mini|1|4">Single Mini (1) — $4</option>
-        <option value="Duo Box|2|7">Duo Box (2) — $7</option>
-        <option value="Signature Box|4|13">Signature Box (4) — $13</option>
-        <option value="Family Box|6|18">Family Box (6) — $18</option>
-        <option value="Celebration Box|12|34">Celebration Box (12) — $34</option>
-      </select>
+    <small id="samplerNote">
+      For the 8 Pack Sampler, flavors are automatically one of each flavor.
+    </small>
+  </div>
 
-      <select id="payment" required>
-        <option value="">Choose Payment Method</option>
-        <option>Venmo</option>
-        <option>Cash App</option>
-        <option>Zelle</option>
-        <option>Cash</option>
-      </select>
+  <select id="box" required>
+    <option value="">Choose Box</option>
+    <option value="Single Mini|1|4">Single Mini (1) — $4</option>
+    <option value="Duo Box|2|7">Duo Box (2) — $7</option>
+    <option value="Signature Box|4|13">Signature Box (4) — $13</option>
+    <option value="Family Box|6|18">Family Box (6) — $18</option>
+    <option value="Sampler Box|8|24">8 Pack Sampler — $24</option>
+    <option value="Celebration Box|12|34">Celebration Box (12) — $34</option>
+  </select>
 
-      <input type="text" id="pickupDate" placeholder="Pickup Date / Needed By" required>
+  <select id="boxQuantity" required>
+    <option value="1">1 Box</option>
+    <option value="2">2 Boxes</option>
+    <option value="3">3 Boxes</option>
+    <option value="4">4 Boxes</option>
+    <option value="5">5 Boxes</option>
+  </select>
 
-      <textarea id="notes" placeholder="Notes, color requests, or special message"></textarea>
+  <select id="payment" required>
+    <option value="">Choose Payment Method</option>
+    <option>Venmo</option>
+    <option>Cash App</option>
+    <option>Zelle</option>
+    <option>Cash</option>
+  </select>
 
-      <div class="total-box">
-        <h3>Total: <span id="totalDisplay">$0</span></h3>
-        <p id="paymentInstructions">Choose a payment method to see instructions.</p>
-      </div>
+  <input type="text" id="pickupDate" placeholder="Pickup Date / Needed By" required>
 
-      <button type="submit">Send Order</button>
+  <textarea id="notes" placeholder="Notes or special message"></textarea>
 
-      <p id="formMessage"></p>
-    </form>
+  <div class="total-box">
+    <h3>Total: <span id="totalDisplay">$0</span></h3>
+    <p id="paymentInstructions">Choose a payment method to see instructions.</p>
+  </div>
+
+  <button type="submit">Send Order</button>
+
+  <p id="formMessage"></p>
+</form>
   </div>
 </section>
 
