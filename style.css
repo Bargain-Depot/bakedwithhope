@@ -976,6 +976,19 @@ footer h3 {
   width: auto;
 }
 
+.box-order-card {
+  background: var(--cream);
+  border: 3px solid var(--soft-pink);
+  border-radius: 22px;
+  padding: 18px;
+  display: grid;
+  gap: 14px;
+}
+
+.box-order-card h3 {
+  color: var(--hot-pink);
+}
+
 .review-cards {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
