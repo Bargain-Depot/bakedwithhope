@@ -51,11 +51,31 @@ header {
 }
 
 .logo {
-  font-family: 'DM Serif Display', serif;
-  color: var(--hot-pink);
-  font-size: 1.6rem;
-  font-weight: 900;
+
+  display: flex;
+
+  align-items: center;
+
   text-decoration: none;
+
+}
+
+.logo img {
+
+  height: 75px;
+
+  width: auto;
+
+  object-fit: contain;
+
+  transition: .25s ease;
+
+}
+
+.logo:hover img {
+
+  transform: translateY(-2px) scale(1.03);
+
 }
 
 .nav-links {
@@ -893,5 +913,11 @@ footer h3 {
 @media (max-width: 850px) {
   .review-cards {
     grid-template-columns: 1fr;
+
+    .logo img {
+
+  height: 60px;
+
+}
   }
 }
