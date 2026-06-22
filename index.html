@@ -348,16 +348,24 @@
 const scriptURL = "https://script.google.com/macros/s/AKfycbwbHvwYbPx2UsZY6RF9TPCA3aw_F4wMFyxWsbZqywRoA1b2B-nO2RMo23vCM3XjBDj2AQ/exec";
 
 const boxSelect = document.getElementById("box");
+const boxQuantitySelect = document.getElementById("boxQuantity");
 const paymentSelect = document.getElementById("payment");
 const totalDisplay = document.getElementById("totalDisplay");
 const paymentInstructions = document.getElementById("paymentInstructions");
 const formMessage = document.getElementById("formMessage");
+const flavorCheckboxes = document.querySelectorAll('input[name="flavor"]');
 
 let currentTotal = 0;
 let currentQuantity = 0;
 let currentBox = "";
+let currentBoxQuantity = 1;
 
-boxSelect.addEventListener("change", updateTotal);
+boxSelect.addEventListener("change", function() {
+  updateTotal();
+  handleSamplerFlavor();
+});
+
+boxQuantitySelect.addEventListener("change", updateTotal);
 paymentSelect.addEventListener("change", updatePayment);
 
 function updateTotal() {
@@ -365,16 +373,31 @@ function updateTotal() {
     currentTotal = 0;
     currentQuantity = 0;
     currentBox = "";
+    currentBoxQuantity = Number(boxQuantitySelect.value);
     totalDisplay.textContent = "$0";
     return;
   }
 
   const parts = boxSelect.value.split("|");
+
   currentBox = parts[0];
-  currentQuantity = parts[1];
-  currentTotal = parts[2];
+  const cakesPerBox = Number(parts[1]);
+  const pricePerBox = Number(parts[2]);
+  currentBoxQuantity = Number(boxQuantitySelect.value);
+
+  currentQuantity = cakesPerBox * currentBoxQuantity;
+  currentTotal = pricePerBox * currentBoxQuantity;
 
   totalDisplay.textContent = "$" + currentTotal;
+}
+
+function handleSamplerFlavor() {
+  const isSampler = boxSelect.value.includes("Sampler Box");
+
+  flavorCheckboxes.forEach(checkbox => {
+    checkbox.checked = false;
+    checkbox.disabled = isSampler;
+  });
 }
 
 function updatePayment() {
@@ -396,14 +419,26 @@ function updatePayment() {
 document.getElementById("orderForm").addEventListener("submit", async function(e) {
   e.preventDefault();
 
+  const selectedFlavors = Array.from(document.querySelectorAll('input[name="flavor"]:checked'))
+    .map(input => input.value);
+
+  const isSampler = boxSelect.value.includes("Sampler Box");
+
+  if (!isSampler && selectedFlavors.length === 0) {
+    formMessage.textContent = "Please choose at least one flavor.";
+    return;
+  }
+
+  const flavorText = isSampler
+    ? "Sampler Pack — one of each flavor"
+    : selectedFlavors.join(", ");
+
   const orderData = {
     name: document.getElementById("name").value,
     phone: document.getElementById("phone").value,
     email: document.getElementById("email").value,
-    flavor: Array.from(document.querySelectorAll('input[name="flavor"]:checked'))
-  .map(input => input.value)
-  .join(", "),
-    box: currentBox,
+    flavor: flavorText,
+    box: currentBox + " x " + currentBoxQuantity,
     quantity: currentQuantity,
     total: currentTotal,
     payment: paymentSelect.value,
@@ -421,6 +456,17 @@ document.getElementById("orderForm").addEventListener("submit", async function(e
 
     formMessage.textContent = "Order sent! Please complete payment using the instructions above.";
     document.getElementById("orderForm").reset();
+
+    flavorCheckboxes.forEach(checkbox => {
+      checkbox.disabled = false;
+      checkbox.checked = false;
+    });
+
+    currentTotal = 0;
+    currentQuantity = 0;
+    currentBox = "";
+    currentBoxQuantity = 1;
+
     totalDisplay.textContent = "$0";
     paymentInstructions.textContent = "Choose a payment method to see instructions.";
   } catch (error) {
@@ -428,6 +474,5 @@ document.getElementById("orderForm").addEventListener("submit", async function(e
   }
 });
 </script>
-
 </body>
 </html>
