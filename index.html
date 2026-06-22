@@ -242,36 +242,15 @@
   <input type="tel" id="phone" placeholder="Phone Number" required>
   <input type="email" id="email" placeholder="Email Address">
 
-  <div class="flavor-checks">
-    <p>Choose Flavor(s)</p>
+<select id="numberOfBoxes" required>
+  <option value="1">1 Box</option>
+  <option value="2">2 Boxes</option>
+  <option value="3">3 Boxes</option>
+  <option value="4">4 Boxes</option>
+  <option value="5">5 Boxes</option>
+</select>
 
-    <label><input type="checkbox" name="flavor" value="Cookies & Cream"> Cookies & Cream</label>
-    <label><input type="checkbox" name="flavor" value="Strawberry Crunch"> Strawberry Crunch</label>
-    <label><input type="checkbox" name="flavor" value="Biscoff"> Biscoff</label>
-    <label><input type="checkbox" name="flavor" value="Fruity Pebbles"> Fruity Pebbles</label>
-
-    <small id="samplerNote">
-      For the 8 Pack Sampler, flavors are automatically one of each flavor.
-    </small>
-  </div>
-
-  <select id="box" required>
-    <option value="">Choose Box</option>
-    <option value="Single Mini|1|4">Single Mini (1) — $4</option>
-    <option value="Duo Box|2|7">Duo Box (2) — $7</option>
-    <option value="Signature Box|4|13">Signature Box (4) — $13</option>
-    <option value="Family Box|6|18">Family Box (6) — $18</option>
-    <option value="Sampler Box|8|24">8 Pack Sampler — $24</option>
-    <option value="Celebration Box|12|34">Celebration Box (12) — $34</option>
-  </select>
-
-  <select id="boxQuantity" required>
-    <option value="1">1 Box</option>
-    <option value="2">2 Boxes</option>
-    <option value="3">3 Boxes</option>
-    <option value="4">4 Boxes</option>
-    <option value="5">5 Boxes</option>
-  </select>
+<div id="boxBuilder"></div>
 
   <select id="payment" required>
     <option value="">Choose Payment Method</option>
@@ -345,60 +324,101 @@
 </footer>
 
 <script>
-const scriptURL = "https://script.google.com/macros/s/AKfycbwbHvwYbPx2UsZY6RF9TPCA3aw_F4wMFyxWsbZqywRoA1b2B-nO2RMo23vCM3XjBDj2AQ/exec";
+const scriptURL = "YOUR_SCRIPT_URL_HERE";
 
-const boxSelect = document.getElementById("box");
-const boxQuantitySelect = document.getElementById("boxQuantity");
+const boxBuilder = document.getElementById("boxBuilder");
+const numberOfBoxes = document.getElementById("numberOfBoxes");
 const paymentSelect = document.getElementById("payment");
 const totalDisplay = document.getElementById("totalDisplay");
 const paymentInstructions = document.getElementById("paymentInstructions");
 const formMessage = document.getElementById("formMessage");
-const flavorCheckboxes = document.querySelectorAll('input[name="flavor"]');
 
-let currentTotal = 0;
-let currentQuantity = 0;
-let currentBox = "";
-let currentBoxQuantity = 1;
+const boxOptions = [
+  { name: "Single Mini", cakes: 1, price: 4 },
+  { name: "Duo Box", cakes: 2, price: 7 },
+  { name: "Signature Box", cakes: 4, price: 13 },
+  { name: "Family Box", cakes: 6, price: 18 },
+  { name: "8 Pack Sampler", cakes: 8, price: 24 },
+  { name: "Celebration Box", cakes: 12, price: 34 }
+];
 
-boxSelect.addEventListener("change", function() {
-  updateTotal();
-  handleSamplerFlavor();
-});
+const flavors = [
+  "Cookies & Cream",
+  "Strawberry Crunch",
+  "Biscoff",
+  "Fruity Pebbles"
+];
 
-boxQuantitySelect.addEventListener("change", updateTotal);
-paymentSelect.addEventListener("change", updatePayment);
+function renderBoxes() {
+  const amount = Number(numberOfBoxes.value);
+  boxBuilder.innerHTML = "";
 
-function updateTotal() {
-  if (!boxSelect.value) {
-    currentTotal = 0;
-    currentQuantity = 0;
-    currentBox = "";
-    currentBoxQuantity = Number(boxQuantitySelect.value);
-    totalDisplay.textContent = "$0";
-    return;
+  for (let i = 1; i <= amount; i++) {
+    boxBuilder.innerHTML += `
+      <div class="box-order-card">
+        <h3>Box ${i}</h3>
+
+        <select class="box-type" data-box="${i}" required>
+          <option value="">Choose Box Type</option>
+          ${boxOptions.map(box =>
+            `<option value="${box.name}|${box.cakes}|${box.price}">
+              ${box.name} (${box.cakes}) — $${box.price}
+            </option>`
+          ).join("")}
+        </select>
+
+        <div class="flavor-checks box-flavors" data-flavors="${i}">
+          <p>Choose Flavor(s) for Box ${i}</p>
+
+          ${flavors.map(flavor => `
+            <label>
+              <input type="checkbox" name="flavor-${i}" value="${flavor}">
+              ${flavor}
+            </label>
+          `).join("")}
+
+          <small>Sampler boxes automatically include one of each flavor.</small>
+        </div>
+      </div>
+    `;
   }
 
-  const parts = boxSelect.value.split("|");
-
-  currentBox = parts[0];
-  const cakesPerBox = Number(parts[1]);
-  const pricePerBox = Number(parts[2]);
-  currentBoxQuantity = Number(boxQuantitySelect.value);
-
-  currentQuantity = cakesPerBox * currentBoxQuantity;
-  currentTotal = pricePerBox * currentBoxQuantity;
-
-  totalDisplay.textContent = "$" + currentTotal;
+  attachBoxListeners();
+  updateTotal();
 }
 
-function handleSamplerFlavor() {
-  const isSampler = boxSelect.value.includes("Sampler Box");
+function attachBoxListeners() {
+  document.querySelectorAll(".box-type").forEach(select => {
+    select.addEventListener("change", function() {
+      const boxNumber = this.dataset.box;
+      const flavorArea = document.querySelector(`[data-flavors="${boxNumber}"]`);
+      const checkboxes = flavorArea.querySelectorAll("input[type='checkbox']");
+      const isSampler = this.value.includes("8 Pack Sampler");
 
-  flavorCheckboxes.forEach(checkbox => {
-    checkbox.checked = false;
-    checkbox.disabled = isSampler;
+      checkboxes.forEach(checkbox => {
+        checkbox.checked = false;
+        checkbox.disabled = isSampler;
+      });
+
+      updateTotal();
+    });
   });
 }
+
+function updateTotal() {
+  let total = 0;
+
+  document.querySelectorAll(".box-type").forEach(select => {
+    if (select.value) {
+      const parts = select.value.split("|");
+      total += Number(parts[2]);
+    }
+  });
+
+  totalDisplay.textContent = "$" + total;
+}
+
+numberOfBoxes.addEventListener("change", renderBoxes);
 
 function updatePayment() {
   const payment = paymentSelect.value;
@@ -416,31 +436,54 @@ function updatePayment() {
   }
 }
 
+paymentSelect.addEventListener("change", updatePayment);
+
 document.getElementById("orderForm").addEventListener("submit", async function(e) {
   e.preventDefault();
 
-  const selectedFlavors = Array.from(document.querySelectorAll('input[name="flavor"]:checked'))
-    .map(input => input.value);
+  let orderBoxes = [];
+  let total = 0;
+  let totalCakes = 0;
 
-  const isSampler = boxSelect.value.includes("Sampler Box");
+  const boxTypeSelects = document.querySelectorAll(".box-type");
 
-  if (!isSampler && selectedFlavors.length === 0) {
-    formMessage.textContent = "Please choose at least one flavor.";
-    return;
+  for (let index = 0; index < boxTypeSelects.length; index++) {
+    const select = boxTypeSelects[index];
+
+    if (!select.value) {
+      formMessage.textContent = `Please choose a box type for Box ${index + 1}.`;
+      return;
+    }
+
+    const [boxName, cakes, price] = select.value.split("|");
+    const isSampler = boxName.includes("8 Pack Sampler");
+
+    const selectedFlavors = Array.from(document.querySelectorAll(`input[name="flavor-${index + 1}"]:checked`))
+      .map(input => input.value);
+
+    if (!isSampler && selectedFlavors.length === 0) {
+      formMessage.textContent = `Please choose at least one flavor for Box ${index + 1}.`;
+      return;
+    }
+
+    const flavorText = isSampler
+      ? "Sampler Pack — one of each flavor"
+      : selectedFlavors.join(", ");
+
+    orderBoxes.push(`Box ${index + 1}: ${boxName} (${cakes} cakes) — ${flavorText} — $${price}`);
+
+    total += Number(price);
+    totalCakes += Number(cakes);
   }
-
-  const flavorText = isSampler
-    ? "Sampler Pack — one of each flavor"
-    : selectedFlavors.join(", ");
 
   const orderData = {
     name: document.getElementById("name").value,
     phone: document.getElementById("phone").value,
     email: document.getElementById("email").value,
-    flavor: flavorText,
-    box: currentBox + " x " + currentBoxQuantity,
-    quantity: currentQuantity,
-    total: currentTotal,
+    flavor: orderBoxes.join(" | "),
+    box: `${orderBoxes.length} box(es)`,
+    quantity: totalCakes,
+    total: total,
     payment: paymentSelect.value,
     pickupDate: document.getElementById("pickupDate").value,
     notes: document.getElementById("notes").value
@@ -456,23 +499,15 @@ document.getElementById("orderForm").addEventListener("submit", async function(e
 
     formMessage.textContent = "Order sent! Please complete payment using the instructions above.";
     document.getElementById("orderForm").reset();
-
-    flavorCheckboxes.forEach(checkbox => {
-      checkbox.disabled = false;
-      checkbox.checked = false;
-    });
-
-    currentTotal = 0;
-    currentQuantity = 0;
-    currentBox = "";
-    currentBoxQuantity = 1;
-
+    renderBoxes();
     totalDisplay.textContent = "$0";
     paymentInstructions.textContent = "Choose a payment method to see instructions.";
   } catch (error) {
     formMessage.textContent = "Something went wrong. Please try again or contact us directly.";
   }
 });
+
+renderBoxes();
 </script>
 </body>
 </html>
