@@ -794,6 +794,63 @@ button:hover {
   color: var(--hot-pink);
 }
 
+.flavor-checks {
+  background: var(--cream);
+  border: 3px solid var(--soft-pink);
+  border-radius: 16px;
+  padding: 15px;
+  display: grid;
+  gap: 10px;
+}
+
+.flavor-checks p {
+  font-weight: 900;
+  color: var(--hot-pink);
+}
+
+.flavor-checks label {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  font-weight: 800;
+}
+
+.flavor-checks input {
+  width: auto;
+}
+
+.flavor-checks small {
+  color: var(--hot-pink);
+  font-weight: 800;
+  margin-top: 5px;
+}
+
+.coming-soon {
+  background: #fffafd;
+  opacity: 0.9;
+}
+
+.coming-icon {
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  background: var(--pale-pink);
+  border: 4px dashed var(--soft-pink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'DM Serif Display', serif;
+  font-size: 5rem;
+  color: var(--hot-pink);
+  margin: auto;
+  transition: 0.3s ease;
+}
+
+.coming-soon:hover .coming-icon {
+  transform: scale(1.08) rotate(6deg);
+  background: var(--soft-pink);
+  color: white;
+}
 /* HOPE WALL */
 
 .hope-cards {
