@@ -1021,3 +1021,44 @@ footer h3 {
     font-size: 3.8rem;
   }
 }
+
+.paused-orders{
+    text-align:center;
+    padding:60px 45px;
+}
+
+.paused-orders p{
+    max-width:650px;
+    margin:18px auto;
+    line-height:1.9;
+}
+
+.paused-heart{
+    font-size:4rem;
+    color:var(--hot-pink);
+    margin:25px 0;
+    animation:pulseHeart 2s ease infinite;
+}
+
+.small-heart{
+    font-size:2.5rem;
+    margin:15px 0;
+}
+
+.thank-divider{
+    margin:45px auto;
+    width:120px;
+    border:none;
+    border-top:3px solid var(--soft-pink);
+}
+
+.thank-you-message{
+    font-style:italic;
+}
+
+.reopen-note{
+    margin-top:35px;
+    font-family:'Caveat', cursive;
+    font-size:2rem;
+    color:var(--hot-pink);
+}
