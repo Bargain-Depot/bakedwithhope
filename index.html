@@ -6,7 +6,7 @@
 
   <title>Baked with Hope | Mini Cakes Made with Love</title>
 
-  <link rel="stylesheet" href="style.css?v=6">
+  <link rel="stylesheet" href="style.css?v=7">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -526,7 +526,7 @@
   Paste the PUBLIC Apps Script deployment URL below after deploying Code.gs.
   Keep the Apps Script Settings sheet set to CLOSED while testing.
 */
-const scriptURL = "PASTE_PUBLIC_APPS_SCRIPT_WEB_APP_URL_HERE";
+const scriptURL = "https://script.google.com/macros/s/AKfycbyzHnskl5J9bOdANItTy1B819uoa1zAXd6TgkahTNiAfRC7H8SelhZpZePTeIZIwH6uLA/exec";
 
 const boxOptions = [
   { name: "Single Mini", cakes: 1, price: 5.50 },
@@ -602,12 +602,25 @@ async function loadOrderingState() {
     state.approvedDates = new Set(data.approvedDates || []);
     state.soldOutWeeks = new Set(data.soldOutWeeks || []);
 
-    if (!data.acceptingOrders) {
-      title.textContent = data.statusTitle || "Ordering is currently closed.";
-      text.textContent = data.statusMessage || "Please check back soon.";
-      orderForm.hidden = true;
-      return;
-    }
+if (!data.acceptingOrders) {
+
+  title.textContent = "🌸 Orders are currently closed";
+
+  text.innerHTML = `
+    Thank you so much for all of the love and support! 💗
+    <br><br>
+    We're taking a short break while we prepare our next round of pickup dates.
+    Please check back soon to place your order.
+    <br><br>
+
+    <span class="availability-pill">
+      💕 New pickup dates are announced every Sunday.
+    </span>
+  `;
+
+  orderForm.hidden = true;
+  return;
+}
 
     if (state.approvedDates.size === 0) {
       title.textContent = "New pickup dates are coming soon.";
@@ -616,14 +629,37 @@ async function loadOrderingState() {
       return;
     }
 
-    title.textContent = "Ordering is open.";
-    text.textContent = "Choose from the owner-approved pickup dates below. Dates disappear when their pickup week reaches capacity.";
-    orderForm.hidden = false;
+orderForm.hidden = false;
+
+title.textContent = "🧁 Now accepting orders!";
+
+text.innerHTML = `
+  Pickup dates are updated weekly.
+  <br><br>
+  Choose one of the available pickup dates below to reserve your order.
+  <br><br>
+
+  <span class="availability-pill">
+    💗 Weekly pickup dates are now available!
+  </span>
+`;
     renderBoxes();
     renderCalendar();
   } catch (error) {
-    title.textContent = "Ordering is safely paused.";
-    text.textContent = error.message;
+    title.textContent = "🌸 Orders are currently closed";
+
+    text.innerHTML = `
+      Thank you so much for all of the love and support! 💗
+      <br><br>
+      We're taking a short break while we prepare our next round of pickup dates.
+      Please check back soon to place your order.
+      <br><br>
+
+      <span class="availability-pill">
+        💕 New pickup dates are announced every Sunday.
+      </span>
+    `;
+
     orderForm.hidden = true;
   }
 }
