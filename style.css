@@ -1153,3 +1153,236 @@ button:disabled { cursor: not-allowed; opacity: .65; }
   .calendar-weekdays { font-size: .68rem; }
   .nutrition-dialog { padding: 28px 18px 20px; }
 }
+
+/* ===========================
+   ORDER POLICY POPUP
+=========================== */
+
+.policy-modal[hidden]{
+    display:none !important;
+}
+
+.policy-modal{
+    position:fixed;
+    inset:0;
+    z-index:99999;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    padding:30px;
+}
+
+.modal-backdrop{
+    position:absolute;
+    inset:0;
+    background:rgba(50,25,20,.65);
+    backdrop-filter:blur(8px);
+    -webkit-backdrop-filter:blur(8px);
+}
+
+.policy-modal-shell{
+    position:relative;
+    z-index:2;
+
+    width:min(900px,95vw);
+    max-height:90vh;
+
+    overflow-y:auto;
+
+    border-radius:30px;
+
+    animation:policyPop .25s ease;
+}
+
+.policy-modal-close{
+    position:absolute;
+    top:18px;
+    right:18px;
+
+    width:48px;
+    height:48px;
+
+    border:none;
+    border-radius:50%;
+
+    background:#e98bae;
+    color:white;
+
+    font-size:30px;
+    font-weight:bold;
+
+    cursor:pointer;
+
+    z-index:20;
+}
+
+.policy-modal-close:hover{
+    transform:scale(1.08);
+}
+
+.policy-gingham{
+    padding:25px;
+    border-radius:30px;
+    background:
+    linear-gradient(90deg,#ffdce8 25%,transparent 25%) -20px 0/60px 60px,
+    linear-gradient(#ffdce8 25%,transparent 25%) 0 -20px/60px 60px,
+    #fff7fa;
+}
+
+.canva-policy-card{
+    background:white;
+
+    border-radius:25px;
+
+    padding:45px;
+
+    box-shadow:0 20px 50px rgba(0,0,0,.12);
+}
+
+.policy-script-title{
+    text-align:center;
+    margin-bottom:25px;
+}
+
+.policy-copy h3{
+    margin-top:24px;
+    color:#c85d8f;
+}
+
+.policy-copy ul{
+    margin-left:20px;
+    margin-top:10px;
+}
+
+.policy-copy li{
+    margin-bottom:10px;
+}
+
+.policy-closing{
+    margin-top:30px;
+    text-align:center;
+    font-style:italic;
+}
+
+@keyframes policyPop{
+
+    from{
+        opacity:0;
+        transform:scale(.9);
+    }
+
+    to{
+        opacity:1;
+        transform:scale(1);
+    }
+
+}
+
+body.modal-open{
+    overflow:hidden;
+}
+
+/* ORDER POLICY IMAGE POPUP */
+
+.policy-modal[hidden] {
+  display: none !important;
+}
+
+.policy-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+
+.policy-modal .modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(59, 29, 24, 0.68);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.policy-modal-shell {
+  position: relative;
+  z-index: 2;
+  width: min(94vw, 850px);
+  max-height: 92vh;
+  overflow: auto;
+  border-radius: 28px;
+  animation: policyPop 0.25s ease;
+}
+
+.policy-image-wrap {
+  background: var(--paper);
+  border: 4px solid var(--soft-pink);
+  border-radius: 28px;
+  padding: 14px;
+  box-shadow: 12px 12px 0 var(--hot-pink);
+}
+
+.policy-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 18px;
+}
+
+.policy-modal-close {
+  position: sticky;
+  top: 12px;
+  margin-left: auto;
+  margin-right: 12px;
+  margin-bottom: -52px;
+  z-index: 10;
+  width: 46px;
+  height: 46px;
+  padding: 0;
+  border-radius: 50%;
+  background: var(--hot-pink);
+  color: white;
+  font-size: 1.8rem;
+  line-height: 1;
+}
+
+body.modal-open {
+  overflow: hidden;
+}
+
+@keyframes policyPop {
+  from {
+    opacity: 0;
+    transform: scale(0.94);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@media (max-width: 600px) {
+  .policy-modal {
+    padding: 10px;
+    align-items: end;
+  }
+
+  .policy-modal-shell {
+    width: 100%;
+    max-height: 94vh;
+    border-radius: 24px 24px 0 0;
+  }
+
+  .policy-image-wrap {
+    padding: 8px;
+    border-radius: 24px 24px 0 0;
+  }
+
+  .policy-image {
+    border-radius: 16px 16px 0 0;
+  }
+}
