@@ -623,20 +623,39 @@ async function loadOrderingState() {
     state.soldOutWeeks = new Set(data.soldOutWeeks || []);
 
 if (!data.acceptingOrders) {
+  title.textContent =
+    data.statusTitle ||
+    "🌸 Orders are currently closed";
 
-  title.textContent = "🌸 Orders are currently closed";
+  text.innerHTML = "";
 
-  text.innerHTML = `
-    Thank you so much for all of the love and support! 💗
-    <br><br>
-    We're taking a short break while we prepare our next round of pickup dates.
-    Please check back soon to place your order.
-    <br><br>
+  const savedMessage =
+    document.createElement("span");
 
-    <span class="availability-pill">
-      💕 New pickup dates are announced every Sunday.
-    </span>
-  `;
+  savedMessage.textContent =
+    data.statusMessage ||
+    "Please check back soon.";
+
+  text.appendChild(savedMessage);
+
+  const spacing =
+    document.createElement("br");
+
+  text.appendChild(spacing);
+  text.appendChild(
+    document.createElement("br")
+  );
+
+  const pill =
+    document.createElement("span");
+
+  pill.className =
+    "availability-pill";
+
+  pill.textContent =
+    "💕 New order openings are announced every Sunday.";
+
+  text.appendChild(pill);
 
   orderForm.hidden = true;
   return;
