@@ -623,20 +623,13 @@ async function loadOrderingState() {
     state.soldOutWeeks = new Set(data.soldOutWeeks || []);
 
 if (!data.acceptingOrders) {
+  title.textContent =
+    data.statusTitle ||
+    "🌸 Orders are currently closed";
 
-  title.textContent = "🌸 Orders are currently closed";
-
-  text.innerHTML = `
-    Thank you so much for all of the love and support! 💗
-    <br><br>
-    We're taking a short break while we prepare our next round of pickup dates.
-    Please check back soon to place your order.
-    <br><br>
-
-    <span class="availability-pill">
-      💕 New pickup dates are announced every Sunday.
-    </span>
-  `;
+  text.textContent =
+    data.statusMessage ||
+    "Ordering is temporarily paused.";
 
   orderForm.hidden = true;
   return;
