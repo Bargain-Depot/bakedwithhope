@@ -254,7 +254,7 @@
       <input type="tel" id="phone" autocomplete="tel" placeholder="Phone Number" required>
 
       <label for="email">Email address</label>
-      <input type="email" id="email" autocomplete="email" placeholder="Email Address">
+      <input type="email" id="email" autocomplete="email" placeholder="Email Address" required>
 
       <label for="numberOfBoxes">Number of boxes</label>
       <select id="numberOfBoxes" required>
@@ -623,39 +623,20 @@ async function loadOrderingState() {
     state.soldOutWeeks = new Set(data.soldOutWeeks || []);
 
 if (!data.acceptingOrders) {
-  title.textContent =
-    data.statusTitle ||
-    "🌸 Orders are currently closed";
 
-  text.innerHTML = "";
+  title.textContent = "🌸 Orders are currently closed";
 
-  const savedMessage =
-    document.createElement("span");
+  text.innerHTML = `
+    Thank you so much for all of the love and support! 💗
+    <br><br>
+    We're taking a short break while we prepare our next round of pickup dates.
+    Please check back soon to place your order.
+    <br><br>
 
-  savedMessage.textContent =
-    data.statusMessage ||
-    "Please check back soon.";
-
-  text.appendChild(savedMessage);
-
-  const spacing =
-    document.createElement("br");
-
-  text.appendChild(spacing);
-  text.appendChild(
-    document.createElement("br")
-  );
-
-  const pill =
-    document.createElement("span");
-
-  pill.className =
-    "availability-pill";
-
-  pill.textContent =
-    "💕 New order openings are announced every Sunday.";
-
-  text.appendChild(pill);
+    <span class="availability-pill">
+      💕 New pickup dates are announced every Sunday.
+    </span>
+  `;
 
   orderForm.hidden = true;
   return;
@@ -983,7 +964,7 @@ orderForm.addEventListener("submit", async event => {
     const result = await response.json();
     if (!result.ok) throw new Error(result.message || "The order could not be submitted.");
 
-    formMessage.textContent = `Order ${result.orderNumber} received! Please complete payment using the instructions above.`;
+    formMessage.textContent = `Order ${result.orderNumber} received! A confirmation was sent to your email. Please complete payment using the instructions above.`;
     orderForm.reset();
     state.selectedDate = "";
     pickupDateInput.value = "";
