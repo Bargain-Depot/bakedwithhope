@@ -3499,3 +3499,88 @@ body.modal-open {
     animation-duration: 52s;
   }
 }
+
+/* ========================================
+   MOBILE ORDER FORM OVERFLOW FIX
+======================================== */
+
+.order-section,
+.order-box,
+#orderForm,
+#boxBuilder,
+.box-order-card,
+.flavor-checks,
+.flavor-option,
+.pickup-fieldset,
+.pickup-calendar,
+.pickup-timeframe-area {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+}
+
+#orderForm > *,
+.box-order-card > *,
+.flavor-checks > *,
+.flavor-option > * {
+  min-width: 0;
+  max-width: 100%;
+}
+
+input,
+textarea,
+select {
+  max-width: 100%;
+  min-width: 0;
+}
+
+.main-flavor-label,
+.tres-option,
+.tres-quantity-label {
+  min-width: 0;
+  max-width: 100%;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 600px) {
+  html,
+  body {
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  .order-section {
+    width: 100%;
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+
+  .order-box {
+    padding: 20px 14px;
+  }
+
+  .form-intro h2 {
+    font-size: clamp(2.2rem, 11vw, 3rem);
+    overflow-wrap: anywhere;
+  }
+
+  .form-intro p {
+    overflow-wrap: anywhere;
+  }
+
+  .box-order-card,
+  .flavor-checks {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .tres-option,
+  .already-tres {
+    margin-left: 0;
+  }
+
+  select {
+    font-size: 16px;
+  }
+}
