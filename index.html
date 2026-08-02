@@ -6,7 +6,7 @@
 
   <title>Baked with Hope | Mini Cakes Made with Love</title>
 
-  <link rel="stylesheet" href="style.css?v=11">
+  <link rel="stylesheet" href="style.css?v=12">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -337,33 +337,184 @@
           </select>
 
           <div id="ribbonFields" class="packaging-subsection" hidden>
-            <label for="ribbonColor">Ribbon color</label>
-            <select id="ribbonColor">
-              <option value="">Choose a ribbon color</option>
-              <option value="Gold Glitter">✨ Gold Glitter</option>
-              <option value="Silver Glitter">✨ Silver Glitter</option>
-              <option value="White">⚪ White</option>
-              <option value="Silver">🩶 Silver</option>
-              <option value="Light Pink">🩷 Light Pink</option>
-              <option value="Hot Pink">💗 Hot Pink</option>
-              <option value="Yellow">💛 Yellow</option>
-              <option value="Gold">🟡 Gold</option>
-              <option value="Peach">🍑 Peach</option>
-              <option value="Orange">🧡 Orange</option>
-              <option value="Red">❤️ Red</option>
-              <option value="Burgundy">🍷 Burgundy</option>
-              <option value="Green">💚 Green</option>
-              <option value="Dark Green">🌲 Dark Green</option>
-              <option value="Light Blue">🩵 Light Blue</option>
-              <option value="Royal Blue">💙 Royal Blue</option>
-              <option value="Navy Blue">🌌 Navy Blue</option>
-              <option value="Purple">💜 Purple</option>
-              <option value="Black">🖤 Black</option>
-            </select>
+            <fieldset class="packaging-color-fieldset">
+              <legend>Ribbon color</legend>
+              <p class="packaging-color-help">Tap a color to select it.</p>
 
+              <input type="hidden" id="ribbonColor" value="">
+
+              <div class="packaging-color-grid" id="ribbonColorGrid">
+                <label class="packaging-color-choice">
+                  <input type="radio" name="ribbonColorChoice" value="Gold Glitter">
+                  <span class="packaging-swatch swatch-gold-glitter" aria-hidden="true"></span>
+                  <span>Gold Glitter</span>
+                </label>
+
+                <label class="packaging-color-choice">
+                  <input type="radio" name="ribbonColorChoice" value="Silver Glitter">
+                  <span class="packaging-swatch swatch-silver-glitter" aria-hidden="true"></span>
+                  <span>Silver Glitter</span>
+                </label>
+
+                <label class="packaging-color-choice">
+                  <input type="radio" name="ribbonColorChoice" value="White">
+                  <span class="packaging-swatch" style="--swatch-color:#ffffff" aria-hidden="true"></span>
+                  <span>White</span>
+                </label>
+
+                <label class="packaging-color-choice">
+                  <input type="radio" name="ribbonColorChoice" value="Silver">
+                  <span class="packaging-swatch" style="--swatch-color:#b9bcc3" aria-hidden="true"></span>
+                  <span>Silver</span>
+                </label>
+
+                <label class="packaging-color-choice">
+                  <input type="radio" name="ribbonColorChoice" value="Light Pink">
+                  <span class="packaging-swatch" style="--swatch-color:#f5b8cf" aria-hidden="true"></span>
+                  <span>Light Pink</span>
+                </label>
+
+                <label class="packaging-color-choice">
+                  <input type="radio" name="ribbonColorChoice" value="Hot Pink">
+                  <span class="packaging-swatch" style="--swatch-color:#df4f8e" aria-hidden="true"></span>
+                  <span>Hot Pink</span>
+                </label>
+
+                <label class="packaging-color-choice">
+                  <input type="radio" name="ribbonColorChoice" value="Yellow">
+                  <span class="packaging-swatch" style="--swatch-color:#ead952" aria-hidden="true"></span>
+                  <span>Yellow</span>
+                </label>
+
+                <label class="packaging-color-choice">
+                  <input type="radio" name="ribbonColorChoice" value="Gold">
+                  <span class="packaging-swatch" style="--swatch-color:#d1a13a" aria-hidden="true"></span>
+                  <span>Gold</span>
+                </label>
+
+                <label class="packaging-color-choice">
+                  <input type="radio" name="ribbonColorChoice" value="Peach">
+                  <span class="packaging-swatch" style="--swatch-color:#f3a081" aria-hidden="true"></span>
+                  <span>Peach</span>
+                </label>
+
+                <label class="packaging-color-choice">
+                  <input type="radio" name="ribbonColorChoice" value="Orange">
+                  <span class="packaging-swatch" style="--swatch-color:#e96c35" aria-hidden="true"></span>
+                  <span>Orange</span>
+                </label>
+
+                <label class="packaging-color-choice">
+                  <input type="radio" name="ribbonColorChoice" value="Red">
+                  <span class="packaging-swatch" style="--swatch-color:#c82f38" aria-hidden="true"></span>
+                  <span>Red</span>
+                </label>
+
+                <label class="packaging-color-choice">
+                  <input type="radio" name="ribbonColorChoice" value="Burgundy">
+                  <span class="packaging-swatch" style="--swatch-color:#7d2331" aria-hidden="true"></span>
+                  <span>Burgundy</span>
+                </label>
+
+                <label class="packaging-color-choice">
+                  <input type="radio" name="ribbonColorChoice" value="Green">
+                  <span class="packaging-swatch" style="--swatch-color:#3ca55c" aria-hidden="true"></span>
+                  <span>Green</span>
+                </label>
+
+                <label class="packaging-color-choice">
+                  <input type="radio" name="ribbonColorChoice" value="Dark Green">
+                  <span class="packaging-swatch" style="--swatch-color:#245f3f" aria-hidden="true"></span>
+                  <span>Dark Green</span>
+                </label>
+
+                <label class="packaging-color-choice">
+                  <input type="radio" name="ribbonColorChoice" value="Light Blue">
+                  <span class="packaging-swatch" style="--swatch-color:#83c7e7" aria-hidden="true"></span>
+                  <span>Light Blue</span>
+                </label>
+
+                <label class="packaging-color-choice">
+                  <input type="radio" name="ribbonColorChoice" value="Royal Blue">
+                  <span class="packaging-swatch" style="--swatch-color:#2467bf" aria-hidden="true"></span>
+                  <span>Royal Blue</span>
+                </label>
+
+                <label class="packaging-color-choice">
+                  <input type="radio" name="ribbonColorChoice" value="Navy Blue">
+                  <span class="packaging-swatch" style="--swatch-color:#24395c" aria-hidden="true"></span>
+                  <span>Navy Blue</span>
+                </label>
+
+                <label class="packaging-color-choice">
+                  <input type="radio" name="ribbonColorChoice" value="Purple">
+                  <span class="packaging-swatch" style="--swatch-color:#7d3aa8" aria-hidden="true"></span>
+                  <span>Purple</span>
+                </label>
+
+                <label class="packaging-color-choice">
+                  <input type="radio" name="ribbonColorChoice" value="Black">
+                  <span class="packaging-swatch" style="--swatch-color:#1b1b1b" aria-hidden="true"></span>
+                  <span>Black</span>
+                </label>
+              </div>
+
+              <p id="selectedRibbonColor" class="selected-packaging-color" aria-live="polite">
+                No ribbon color selected.
+              </p>
+            </fieldset>
           </div>
 
           <div id="cardFields" class="packaging-subsection" hidden>
+            <fieldset class="packaging-color-fieldset">
+              <legend>Card color</legend>
+              <p class="packaging-color-help">Choose one of the available pastel card colors.</p>
+
+              <input type="hidden" id="cardColor" value="">
+
+              <div class="packaging-color-grid card-color-grid" id="cardColorGrid">
+                <label class="packaging-color-choice">
+                  <input type="radio" name="cardColorChoice" value="Dusty Rose">
+                  <span class="packaging-swatch" style="--swatch-color:#d6a09d" aria-hidden="true"></span>
+                  <span>Dusty Rose</span>
+                </label>
+
+                <label class="packaging-color-choice">
+                  <input type="radio" name="cardColorChoice" value="Taupe Gray">
+                  <span class="packaging-swatch" style="--swatch-color:#b7ada7" aria-hidden="true"></span>
+                  <span>Taupe Gray</span>
+                </label>
+
+                <label class="packaging-color-choice">
+                  <input type="radio" name="cardColorChoice" value="Blush Pink">
+                  <span class="packaging-swatch" style="--swatch-color:#efd0ca" aria-hidden="true"></span>
+                  <span>Blush Pink</span>
+                </label>
+
+                <label class="packaging-color-choice">
+                  <input type="radio" name="cardColorChoice" value="Powder Blue">
+                  <span class="packaging-swatch" style="--swatch-color:#b9d3df" aria-hidden="true"></span>
+                  <span>Powder Blue</span>
+                </label>
+
+                <label class="packaging-color-choice">
+                  <input type="radio" name="cardColorChoice" value="Soft Peach">
+                  <span class="packaging-swatch" style="--swatch-color:#efd5bd" aria-hidden="true"></span>
+                  <span>Soft Peach</span>
+                </label>
+
+                <label class="packaging-color-choice">
+                  <input type="radio" name="cardColorChoice" value="Sage Green">
+                  <span class="packaging-swatch" style="--swatch-color:#c5d0c2" aria-hidden="true"></span>
+                  <span>Sage Green</span>
+                </label>
+              </div>
+
+              <p id="selectedCardColor" class="selected-packaging-color" aria-live="polite">
+                No card color selected.
+              </p>
+            </fieldset>
+
             <label for="customCardMessage">Custom card message</label>
             <textarea
               id="customCardMessage"
@@ -659,8 +810,14 @@ const customPackagingDetails = document.getElementById("customPackagingDetails")
 const packagingOccasionInput = document.getElementById("packagingOccasion");
 const packagingOptionSelect = document.getElementById("packagingOption");
 const ribbonFields = document.getElementById("ribbonFields");
-const ribbonColorSelect = document.getElementById("ribbonColor");
+const ribbonColorInput = document.getElementById("ribbonColor");
+const ribbonColorChoices = document.querySelectorAll('input[name="ribbonColorChoice"]');
+const selectedRibbonColorText = document.getElementById("selectedRibbonColor");
+
 const cardFields = document.getElementById("cardFields");
+const cardColorInput = document.getElementById("cardColor");
+const cardColorChoices = document.querySelectorAll('input[name="cardColorChoice"]');
+const selectedCardColorText = document.getElementById("selectedCardColor");
 const customCardMessageInput = document.getElementById("customCardMessage");
 
 const PACKAGING_PRICES = {
@@ -941,6 +1098,36 @@ function packagingUsesCard(option) {
   return option === "Custom Card" || option === "Ribbon + Custom Card";
 }
 
+function clearColorPicker(hiddenInput, choices, statusText, emptyMessage) {
+  hiddenInput.value = "";
+
+  choices.forEach(choice => {
+    choice.checked = false;
+  });
+
+  statusText.textContent = emptyMessage;
+}
+
+function initializePackagingColorPickers() {
+  ribbonColorChoices.forEach(choice => {
+    choice.addEventListener("change", function () {
+      if (!this.checked) return;
+
+      ribbonColorInput.value = this.value;
+      selectedRibbonColorText.textContent = `Selected ribbon: ${this.value}`;
+    });
+  });
+
+  cardColorChoices.forEach(choice => {
+    choice.addEventListener("change", function () {
+      if (!this.checked) return;
+
+      cardColorInput.value = this.value;
+      selectedCardColorText.textContent = `Selected card: ${this.value}`;
+    });
+  });
+}
+
 function updatePackagingFields() {
   const selectedChoice = document.querySelector('input[name="customPackaging"]:checked');
   const wantsPackaging = selectedChoice && selectedChoice.value === "Yes";
@@ -951,8 +1138,21 @@ function updatePackagingFields() {
   if (!wantsPackaging) {
     packagingOccasionInput.value = "";
     packagingOptionSelect.value = "";
-    ribbonColorSelect.value = "";
     customCardMessageInput.value = "";
+
+    clearColorPicker(
+      ribbonColorInput,
+      ribbonColorChoices,
+      selectedRibbonColorText,
+      "No ribbon color selected."
+    );
+
+    clearColorPicker(
+      cardColorInput,
+      cardColorChoices,
+      selectedCardColorText,
+      "No card color selected."
+    );
   }
 
   const selectedOption = wantsPackaging ? packagingOptionSelect.value : "";
@@ -962,15 +1162,26 @@ function updatePackagingFields() {
   ribbonFields.hidden = !usesRibbon;
   cardFields.hidden = !usesCard;
 
-  ribbonColorSelect.required = usesRibbon;
   customCardMessageInput.required = usesCard;
 
   if (!usesRibbon) {
-    ribbonColorSelect.value = "";
+    clearColorPicker(
+      ribbonColorInput,
+      ribbonColorChoices,
+      selectedRibbonColorText,
+      "No ribbon color selected."
+    );
   }
 
   if (!usesCard) {
     customCardMessageInput.value = "";
+
+    clearColorPicker(
+      cardColorInput,
+      cardColorChoices,
+      selectedCardColorText,
+      "No card color selected."
+    );
   }
 
   updateTotal();
@@ -994,7 +1205,9 @@ function getPackagingData() {
   const option = packagingOptionSelect.value;
   const usesRibbon = packagingUsesRibbon(option);
   const usesCard = packagingUsesCard(option);
-  const ribbonColor = ribbonColorSelect.value;
+  const ribbonColor = ribbonColorInput.value;
+  const cardColor = cardColorInput.value;
+  const writtenMessage = customCardMessageInput.value.trim();
 
   if (!option) {
     throw new Error("Please choose a custom packaging option.");
@@ -1004,9 +1217,18 @@ function getPackagingData() {
     throw new Error("Please choose a ribbon color.");
   }
 
-  if (usesCard && !customCardMessageInput.value.trim()) {
+  if (usesCard && !cardColor) {
+    throw new Error("Please choose a card color.");
+  }
+
+  if (usesCard && !writtenMessage) {
     throw new Error("Please enter the message for the custom card.");
   }
+
+  const cardMessage = usesCard
+    ? `Card color: ${cardColor}
+${writtenMessage}`
+    : "";
 
   return {
     enabled: true,
@@ -1014,7 +1236,7 @@ function getPackagingData() {
     option,
     price: Number(PACKAGING_PRICES[option] || 0),
     ribbonColor: usesRibbon ? ribbonColor : "",
-    cardMessage: usesCard ? customCardMessageInput.value.trim() : ""
+    cardMessage
   };
 }
 
@@ -1272,8 +1494,8 @@ document.querySelectorAll('input[name="customPackaging"]').forEach(input => {
 });
 
 packagingOptionSelect.addEventListener("change", updatePackagingFields);
-ribbonColorSelect.addEventListener("change", updatePackagingFields);
 
+initializePackagingColorPickers();
 updatePackagingFields();
 
 // Cake details modal
