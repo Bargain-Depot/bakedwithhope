@@ -6,7 +6,7 @@
 
   <title>Baked with Hope | Mini Cakes Made with Love</title>
 
-  <link rel="stylesheet" href="style.css?v=10">
+  <link rel="stylesheet" href="style.css?v=11">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -331,34 +331,36 @@
           <label for="packagingOption">Packaging option</label>
           <select id="packagingOption">
             <option value="">Choose a packaging option</option>
-            <option value="Ribbon" data-price="4">Ribbon — +$4.00</option>
+            <option value="Ribbon" data-price="2">Ribbon — +$2.00</option>
             <option value="Custom Card" data-price="2">Custom card — +$2.00</option>
-            <option value="Ribbon + Custom Card" data-price="5">Ribbon + custom card — +$5.00</option>
+            <option value="Ribbon + Custom Card" data-price="3">Ribbon + custom card — +$3.00</option>
           </select>
 
           <div id="ribbonFields" class="packaging-subsection" hidden>
             <label for="ribbonColor">Ribbon color</label>
             <select id="ribbonColor">
               <option value="">Choose a ribbon color</option>
-              <option>Blush Pink</option>
-              <option>Hot Pink</option>
-              <option>White</option>
-              <option>Cream</option>
-              <option>Red</option>
-              <option>Black</option>
-              <option>Gold</option>
-              <option>Silver</option>
-              <option>Lavender</option>
-              <option>Light Blue</option>
-              <option>Navy Blue</option>
-              <option>Green</option>
-              <option>Other</option>
+              <option value="Gold Glitter">✨ Gold Glitter</option>
+              <option value="Silver Glitter">✨ Silver Glitter</option>
+              <option value="White">⚪ White</option>
+              <option value="Silver">🩶 Silver</option>
+              <option value="Light Pink">🩷 Light Pink</option>
+              <option value="Hot Pink">💗 Hot Pink</option>
+              <option value="Yellow">💛 Yellow</option>
+              <option value="Gold">🟡 Gold</option>
+              <option value="Peach">🍑 Peach</option>
+              <option value="Orange">🧡 Orange</option>
+              <option value="Red">❤️ Red</option>
+              <option value="Burgundy">🍷 Burgundy</option>
+              <option value="Green">💚 Green</option>
+              <option value="Dark Green">🌲 Dark Green</option>
+              <option value="Light Blue">🩵 Light Blue</option>
+              <option value="Royal Blue">💙 Royal Blue</option>
+              <option value="Navy Blue">🌌 Navy Blue</option>
+              <option value="Purple">💜 Purple</option>
+              <option value="Black">🖤 Black</option>
             </select>
 
-            <div id="otherRibbonColorArea" hidden>
-              <label for="otherRibbonColor">Requested ribbon color</label>
-              <input type="text" id="otherRibbonColor" maxlength="40" placeholder="Enter the requested color">
-            </div>
           </div>
 
           <div id="cardFields" class="packaging-subsection" hidden>
@@ -658,15 +660,13 @@ const packagingOccasionInput = document.getElementById("packagingOccasion");
 const packagingOptionSelect = document.getElementById("packagingOption");
 const ribbonFields = document.getElementById("ribbonFields");
 const ribbonColorSelect = document.getElementById("ribbonColor");
-const otherRibbonColorArea = document.getElementById("otherRibbonColorArea");
-const otherRibbonColorInput = document.getElementById("otherRibbonColor");
 const cardFields = document.getElementById("cardFields");
 const customCardMessageInput = document.getElementById("customCardMessage");
 
 const PACKAGING_PRICES = {
-  "Ribbon": 4,
+  "Ribbon": 2,
   "Custom Card": 2,
-  "Ribbon + Custom Card": 5
+  "Ribbon + Custom Card": 3
 };
 
 function money(amount) {
@@ -952,7 +952,6 @@ function updatePackagingFields() {
     packagingOccasionInput.value = "";
     packagingOptionSelect.value = "";
     ribbonColorSelect.value = "";
-    otherRibbonColorInput.value = "";
     customCardMessageInput.value = "";
   }
 
@@ -968,13 +967,6 @@ function updatePackagingFields() {
 
   if (!usesRibbon) {
     ribbonColorSelect.value = "";
-    otherRibbonColorInput.value = "";
-    otherRibbonColorArea.hidden = true;
-    otherRibbonColorInput.required = false;
-  } else {
-    const usesOtherColor = ribbonColorSelect.value === "Other";
-    otherRibbonColorArea.hidden = !usesOtherColor;
-    otherRibbonColorInput.required = usesOtherColor;
   }
 
   if (!usesCard) {
@@ -1002,16 +994,14 @@ function getPackagingData() {
   const option = packagingOptionSelect.value;
   const usesRibbon = packagingUsesRibbon(option);
   const usesCard = packagingUsesCard(option);
-  const ribbonColor = ribbonColorSelect.value === "Other"
-    ? otherRibbonColorInput.value.trim()
-    : ribbonColorSelect.value;
+  const ribbonColor = ribbonColorSelect.value;
 
   if (!option) {
     throw new Error("Please choose a custom packaging option.");
   }
 
   if (usesRibbon && !ribbonColor) {
-    throw new Error("Please choose or enter a ribbon color.");
+    throw new Error("Please choose a ribbon color.");
   }
 
   if (usesCard && !customCardMessageInput.value.trim()) {
