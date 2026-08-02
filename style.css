@@ -415,6 +415,7 @@ h3 {
   transform: rotate(-2deg);
   transition: 0.25s ease;
 }
+
 .memory-photo:hover {
   transform: rotate(0deg) translateY(-6px);
   box-shadow: 14px 14px 0 var(--medium-pink);
@@ -3725,5 +3726,162 @@ select {
 
   .custom-packaging-fieldset {
     padding: 16px 12px;
+  }
+}
+
+
+
+/* ========================================
+   VISUAL RIBBON + CARD COLOR PICKERS
+======================================== */
+
+.packaging-color-fieldset {
+  min-width: 0;
+  padding: 17px;
+
+  background: var(--paper);
+
+  border: 3px solid var(--soft-pink);
+  border-radius: 17px;
+}
+
+.packaging-color-fieldset legend {
+  padding: 0 8px;
+
+  color: var(--brown);
+
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.packaging-color-help {
+  margin-bottom: 13px;
+
+  color: var(--hot-pink);
+
+  font-size: 0.9rem;
+  font-weight: 800;
+}
+
+.packaging-color-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.packaging-color-choice {
+  min-width: 0;
+  min-height: 54px;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 10px 12px;
+
+  color: var(--brown);
+  background: var(--white);
+
+  border: 2px solid var(--soft-pink);
+  border-radius: 14px;
+
+  font-size: 0.86rem;
+  font-weight: 800;
+
+  cursor: pointer;
+
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.packaging-color-choice:hover {
+  transform: translateY(-1px);
+  border-color: var(--medium-pink);
+}
+
+.packaging-color-choice:has(input:checked) {
+  background: var(--pale-pink);
+  border-color: var(--hot-pink);
+  box-shadow: 0 0 0 3px rgba(200, 93, 143, 0.14);
+}
+
+.packaging-color-choice input {
+  position: absolute;
+
+  width: 1px;
+  height: 1px;
+
+  overflow: hidden;
+
+  opacity: 0;
+  pointer-events: none;
+}
+
+.packaging-color-choice > span:last-child {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.packaging-swatch {
+  width: 27px;
+  height: 27px;
+
+  flex: 0 0 27px;
+  display: block;
+
+  background: var(--swatch-color);
+
+  border: 2px solid rgba(59, 29, 24, 0.22);
+  border-radius: 6px;
+
+  box-shadow:
+    inset 0 1px 2px rgba(255, 255, 255, 0.65),
+    0 1px 2px rgba(59, 29, 24, 0.08);
+}
+
+.swatch-gold-glitter {
+  background:
+    radial-gradient(circle at 25% 28%, #fff8bb 0 5%, transparent 6%),
+    radial-gradient(circle at 72% 68%, #fff5a0 0 5%, transparent 6%),
+    linear-gradient(135deg, #95670b, #efd359, #ae790d);
+
+  background-size:
+    9px 9px,
+    11px 11px,
+    auto;
+}
+
+.swatch-silver-glitter {
+  background:
+    radial-gradient(circle at 25% 28%, #ffffff 0 5%, transparent 6%),
+    radial-gradient(circle at 72% 68%, #ffffff 0 5%, transparent 6%),
+    linear-gradient(135deg, #777b82, #e5e7e9, #9da1a7);
+
+  background-size:
+    9px 9px,
+    11px 11px,
+    auto;
+}
+
+.selected-packaging-color {
+  margin-top: 13px;
+
+  color: var(--hot-pink);
+
+  font-size: 0.87rem;
+  font-weight: 900;
+}
+
+@media (max-width: 560px) {
+  .packaging-color-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .packaging-color-choice {
+    min-height: 50px;
   }
 }
