@@ -415,7 +415,6 @@ h3 {
   transform: rotate(-2deg);
   transition: 0.25s ease;
 }
-
 .memory-photo:hover {
   transform: rotate(0deg) translateY(-6px);
   box-shadow: 14px 14px 0 var(--medium-pink);
@@ -3582,5 +3581,149 @@ select {
 
   select {
     font-size: 16px;
+  }
+}
+
+/* ========================================
+   FLAVOR QUANTITIES + CUSTOM PACKAGING
+======================================== */
+
+.flavor-option {
+  background: rgba(255, 255, 255, 0.62);
+  border: 2px solid var(--soft-pink);
+  border-radius: 16px;
+  padding: 14px;
+}
+
+.flavor-selection-details {
+  display: grid;
+  gap: 12px;
+  margin-top: 4px;
+  padding: 13px;
+  background: var(--pale-pink);
+  border: 2px solid var(--soft-pink);
+  border-radius: 14px;
+}
+
+.flavor-selection-details[hidden] {
+  display: none !important;
+}
+
+.flavor-quantity-label {
+  display: grid !important;
+  grid-template-columns: 1fr minmax(84px, 120px);
+  align-items: center;
+  gap: 12px;
+  color: var(--brown);
+}
+
+.flavor-quantity-label input {
+  width: 100%;
+  min-width: 0;
+  padding: 10px 12px;
+  text-align: center;
+  background: var(--white);
+}
+
+.tres-option {
+  margin-left: 0;
+  align-items: flex-start !important;
+  color: var(--hot-pink);
+}
+
+.tres-option input {
+  margin-top: 4px;
+  flex: 0 0 auto;
+}
+
+.already-tres {
+  margin-left: 0;
+  color: var(--hot-pink);
+}
+
+.custom-packaging-fieldset {
+  display: grid;
+  gap: 16px;
+  padding: 20px;
+  background: var(--cream);
+  border: 3px solid var(--soft-pink);
+  border-radius: 22px;
+}
+
+.custom-packaging-fieldset legend {
+  padding: 0 8px;
+  color: var(--hot-pink);
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.35rem;
+}
+
+.packaging-help,
+.card-message-help {
+  color: var(--hot-pink);
+  font-weight: 700;
+}
+
+.packaging-choice-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.packaging-choice {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 13px;
+  background: var(--white);
+  border: 3px solid var(--soft-pink);
+  border-radius: 16px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.packaging-choice input {
+  width: auto;
+}
+
+.custom-packaging-details {
+  display: grid;
+  gap: 13px;
+  padding-top: 4px;
+}
+
+.custom-packaging-details[hidden],
+.packaging-subsection[hidden],
+#otherRibbonColorArea[hidden] {
+  display: none !important;
+}
+
+.custom-packaging-details > label,
+.packaging-subsection > label,
+#otherRibbonColorArea > label {
+  font-weight: 900;
+}
+
+.packaging-subsection,
+#otherRibbonColorArea {
+  display: grid;
+  gap: 10px;
+  padding: 15px;
+  background: var(--pale-pink);
+  border: 2px solid var(--soft-pink);
+  border-radius: 16px;
+}
+
+#customCardMessage {
+  min-height: 110px;
+}
+
+@media (max-width: 600px) {
+  .flavor-quantity-label {
+    grid-template-columns: 1fr 96px;
+  }
+
+  .custom-packaging-fieldset {
+    padding: 16px 12px;
   }
 }
