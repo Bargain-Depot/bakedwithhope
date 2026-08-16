@@ -962,26 +962,8 @@ function renderBoxes() {
             </div>
           </div>`).join("")}
 
-        <div class="sampler-tres-area" data-sampler-tres-area="${i}" hidden>
-          <label class="sampler-tres-option">
-            <input
-              type="checkbox"
-              class="sampler-tres-upgrade"
-              data-box="${i}"
-            >
-            <span>
-              Make the 7 eligible Sampler cakes tres leches
-              +${money((flavors.length - NO_TRES_OPTION.length) * TRES_UPGRADE_PRICE)}
-            </span>
-          </label>
-
-          <small>
-            Salted Caramel Tres Leches already includes tres leches, so there is no extra charge for that cake.
-          </small>
-        </div>
-
         <small class="sampler-note" data-sampler-note="${i}" hidden>
-          Sampler boxes automatically include one of each of the 8 flavors.
+          Sampler boxes automatically include one of each of the 8 flavors. Choose Tres Leches separately for any eligible flavor below.
         </small>
 
         <small class="build-eight-note" data-build-eight-note="${i}" hidden>
@@ -1015,8 +997,28 @@ function resetFlavorArea(flavorArea, isSampler) {
     input.disabled = true;
   });
 
-  flavorArea.querySelectorAll(".sampler-tres-upgrade").forEach(input => {
-    input.checked = false;
+}
+
+function configureSamplerFlavorOptions(flavorArea) {
+  flavorArea.querySelectorAll(".flavor-option").forEach(option => {
+    const flavor = option.dataset.flavorCard;
+    const details = option.querySelector(".flavor-selection-details");
+    const quantityLabel = option.querySelector(".flavor-quantity-label");
+    const tresInput = option.querySelector(".tres-option input");
+
+    if (details) details.hidden = false;
+    if (quantityLabel) quantityLabel.hidden = true;
+
+    if (tresInput) {
+      tresInput.disabled = false;
+      tresInput.checked = false;
+    }
+  });
+}
+
+function restoreStandardFlavorOptions(flavorArea) {
+  flavorArea.querySelectorAll(".flavor-quantity-label").forEach(label => {
+    label.hidden = false;
   });
 }
 
@@ -1030,12 +1032,15 @@ function attachBoxListeners() {
       const isBuildEight = boxName === "Build Your Own 8 Pack";
 
       resetFlavorArea(flavorArea, isSampler);
+      restoreStandardFlavorOptions(flavorArea);
 
-      const samplerTresArea = document.querySelector(`[data-sampler-tres-area="${boxNumber}"]`);
       const samplerNote = document.querySelector(`[data-sampler-note="${boxNumber}"]`);
       const buildEightNote = document.querySelector(`[data-build-eight-note="${boxNumber}"]`);
 
-      if (samplerTresArea) samplerTresArea.hidden = !isSampler;
+      if (isSampler) {
+        configureSamplerFlavorOptions(flavorArea);
+      }
+
       if (samplerNote) samplerNote.hidden = !isSampler;
       if (buildEightNote) buildEightNote.hidden = !isBuildEight;
 
@@ -1078,9 +1083,6 @@ function attachBoxListeners() {
     input.addEventListener("change", updateTotal);
   });
 
-  document.querySelectorAll(".sampler-tres-upgrade").forEach(input => {
-    input.addEventListener("change", updateTotal);
-  });
 }
 
 function getPackagingPrice() {
@@ -1111,17 +1113,6 @@ function calculateOrderTotal() {
       total += SALTED_CARAMEL_SINGLE_SURCHARGE;
     }
 
-    if (boxName === "Sampler Box") {
-      const samplerTres = document.querySelector(
-        `.sampler-tres-upgrade[data-box="${boxNumber}"]`
-      );
-
-      if (samplerTres?.checked) {
-        total +=
-          (flavors.length - NO_TRES_OPTION.length) *
-          TRES_UPGRADE_PRICE;
-      }
-    }
   });
 
   document.querySelectorAll(".tres-option input:checked").forEach(input => {
@@ -1416,21 +1407,24 @@ function buildOrderData() {
     let tresCost = 0;
 
     if (isSampler) {
-      const samplerTresInput = document.querySelector(
-        `.sampler-tres-upgrade[data-box="${boxNumber}"]`
-      );
+      const samplerFlavorLines = flavors.map(flavor => {
+        if (NO_TRES_OPTION.includes(flavor)) {
+          return `${flavor}: 1 — already tres leches`;
+        }
 
-      if (samplerTresInput?.checked) {
-        const eligibleSamplerCakes =
-          flavors.length - NO_TRES_OPTION.length;
+        const tresInput = document.querySelector(
+          `input[name="tres-${boxNumber}"][data-tres-for="${CSS.escape(flavor)}"]`
+        );
+        const isTresUpgrade = Boolean(tresInput?.checked);
 
-        tresCost =
-          eligibleSamplerCakes *
-          TRES_UPGRADE_PRICE;
+        if (isTresUpgrade) {
+          tresCost += TRES_UPGRADE_PRICE;
+        }
 
-        flavorText +=
-          " — 7 eligible flavors made tres leches; Salted Caramel Tres Leches already includes tres leches";
-      }
+        return `${flavor}: 1${isTresUpgrade ? " — tres leches" : ""}`;
+      });
+
+      flavorText = samplerFlavorLines.join(", ");
     }
 
     if (!isSampler) {
@@ -1626,3 +1620,4 @@ loadOrderingState();
 
 </body>
 </html>
+   
