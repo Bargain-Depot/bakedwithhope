@@ -6,7 +6,7 @@
 
   <title>Baked with Hope | Mini Cakes Made with Love</title>
 
-  <link rel="stylesheet" href="style.css?v=14">
+  <link rel="stylesheet" href="style.css?v=15">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -231,6 +231,33 @@
       <h2 id="orderStatusTitle">Checking availability…</h2>
       <p id="orderStatusText">Please wait while we load the owner-approved pickup dates.</p>
     </div>
+
+    <div id="orderCategoryChooser" class="order-category-chooser" hidden>
+      <div class="order-category-heading">
+        <p class="mini-label">Choose your order</p>
+        <h2>What would you like to order?</h2>
+        <p>Mini cakes and 8×8 cakes use separate forms so each order is easy to customize.</p>
+      </div>
+
+      <div class="order-category-grid">
+        <button type="button" class="order-category-card" data-order-category="mini">
+          <span class="order-category-icon" aria-hidden="true">🧁</span>
+          <span class="order-category-title">Mini Cakes</span>
+          <span class="order-category-copy">Build boxes, choose flavors, and add Tres Leches upgrades.</span>
+          <span class="order-category-action">Order Mini Cakes →</span>
+        </button>
+
+        <button type="button" class="order-category-card" data-order-category="8x8">
+          <span class="order-category-icon" aria-hidden="true">🎂</span>
+          <span class="order-category-title">8×8 Cakes</span>
+          <span class="order-category-copy">Customize a full 8×8 cake for birthdays, celebrations, and more.</span>
+          <span class="order-category-action">Order an 8×8 Cake →</span>
+        </button>
+      </div>
+    </div>
+
+    <div id="miniOrderShell" class="order-form-shell" hidden>
+      <button type="button" class="back-to-order-types" data-back-to-order-types>← Back to order types</button>
 
     <form id="orderForm" hidden>
       <div class="form-intro">
@@ -530,6 +557,186 @@
       <button type="submit" id="submitOrderButton">Send Order</button>
       <p id="formMessage" aria-live="polite"></p>
     </form>
+    </div>
+
+    <div id="eightOrderShell" class="order-form-shell" hidden>
+      <button type="button" class="back-to-order-types" data-back-to-order-types>← Back to order types</button>
+
+      <form id="eightOrderForm">
+        <div class="form-intro">
+          <p class="mini-label">8×8 Cake Orders</p>
+          <h2>Customize your 8×8 cake</h2>
+          <p>Base price: <strong>$35.00</strong>. Choose your flavor, optional add-ons, and an approved pickup time.</p>
+        </div>
+
+        <label for="eightName">Name</label>
+        <input type="text" id="eightName" autocomplete="name" placeholder="Your Name" required>
+
+        <label for="eightPhone">Phone number</label>
+        <input type="tel" id="eightPhone" autocomplete="tel" placeholder="Phone Number" required>
+
+        <label for="eightEmail">Email address</label>
+        <input type="email" id="eightEmail" autocomplete="email" placeholder="Email Address" required>
+
+        <fieldset class="eight-cake-options">
+          <legend>Cake details</legend>
+
+          <label for="eightFlavor">Flavor</label>
+          <select id="eightFlavor" required>
+            <option value="">Choose a flavor</option>
+          </select>
+
+          <div id="eightTresRow" class="eight-addon-row">
+            <label class="eight-addon-choice">
+              <input type="checkbox" id="eightTresLeches">
+              <span>
+                <strong>Make it Tres Leches</strong>
+                <small>+$4.00</small>
+              </span>
+            </label>
+            <p id="eightTresNote" class="eight-addon-note" hidden>
+              Salted Caramel Tres Leches already includes Tres Leches, so there is no additional charge.
+            </p>
+          </div>
+        </fieldset>
+
+        <fieldset class="eight-cake-options">
+          <legend>Celebration details</legend>
+
+          <label for="eightOccasion">Occasion</label>
+          <input
+            type="text"
+            id="eightOccasion"
+            maxlength="100"
+            placeholder="Birthday, graduation, anniversary, baby shower..."
+            required
+          >
+
+          <label for="eightDesignNotes">Cake design / special requests</label>
+          <textarea
+            id="eightDesignNotes"
+            maxlength="500"
+            placeholder="Tell us about the theme, wording, colors, or any details you want Tina to know."
+          ></textarea>
+        </fieldset>
+
+        <fieldset class="eight-cake-options">
+          <legend>Add-ons</legend>
+
+          <div class="eight-addon-card">
+            <label class="eight-addon-choice">
+              <input type="checkbox" id="eightTopper">
+              <span>
+                <strong>Cake topper</strong>
+                <small>+$2.00</small>
+              </span>
+            </label>
+
+            <div id="eightTopperFields" class="eight-addon-fields" hidden>
+              <label for="eightTopperColor">Topper color</label>
+              <select id="eightTopperColor">
+                <option value="">Choose topper color</option>
+                <option>Gold</option>
+                <option>Silver</option>
+                <option>Black</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="eight-addon-card">
+            <label class="eight-addon-choice">
+              <input type="checkbox" id="eightGlitter">
+              <span>
+                <strong>Edible glitter spray</strong>
+                <small>+$2.00</small>
+              </span>
+            </label>
+
+            <div id="eightGlitterFields" class="eight-addon-fields" hidden>
+              <label for="eightGlitterColor">Glitter color</label>
+              <select id="eightGlitterColor">
+                <option value="">Choose glitter color</option>
+                <option>White</option>
+                <option>Gold</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="eight-addon-card">
+            <label class="eight-addon-choice">
+              <input type="checkbox" id="eightGiftPackaging">
+              <span>
+                <strong>Ribbon + custom card</strong>
+                <small>+$2.00</small>
+              </span>
+            </label>
+
+            <div id="eightGiftPackagingFields" class="eight-addon-fields" hidden>
+              <fieldset class="packaging-color-fieldset">
+                <legend>Ribbon color</legend>
+                <p class="packaging-color-help">Tap a color to select it.</p>
+                <input type="hidden" id="eightRibbonColor" value="">
+                <div id="eightRibbonColorGrid" class="packaging-color-grid"></div>
+                <p id="eightSelectedRibbonColor" class="selected-packaging-color">No ribbon color selected.</p>
+              </fieldset>
+
+              <fieldset class="packaging-color-fieldset">
+                <legend>Card color</legend>
+                <p class="packaging-color-help">Tap a color to select it.</p>
+                <input type="hidden" id="eightCardColor" value="">
+                <div id="eightCardColorGrid" class="packaging-color-grid"></div>
+                <p id="eightSelectedCardColor" class="selected-packaging-color">No card color selected.</p>
+              </fieldset>
+
+              <label for="eightCardMessage">Custom card message</label>
+              <textarea
+                id="eightCardMessage"
+                maxlength="300"
+                placeholder="Write your message exactly how you would like it on the card."
+              ></textarea>
+            </div>
+          </div>
+        </fieldset>
+
+        <label for="eightPayment">Payment method</label>
+        <select id="eightPayment" required>
+          <option value="">Choose Payment Method</option>
+          <option>Venmo</option>
+          <option>Cash App</option>
+          <option>Zelle</option>
+          <option>Cash</option>
+        </select>
+
+        <fieldset class="pickup-fieldset">
+          <legend>Owner-approved pickup date</legend>
+          <p class="calendar-help">Only highlighted dates are available. Use the arrows to view future months.</p>
+          <input type="hidden" id="eightPickupDate" required>
+          <div id="eightPickupCalendar" class="pickup-calendar" aria-label="8×8 cake pickup date calendar"></div>
+          <p id="eightSelectedPickupDate" class="selected-date">No pickup date selected.</p>
+
+          <div id="eightPickupTimeframeArea" class="pickup-timeframe-area" hidden>
+            <label for="eightPickupTimeframe">Pickup timeframe</label>
+            <select id="eightPickupTimeframe" required>
+              <option value="">Choose a pickup timeframe</option>
+            </select>
+            <p class="timeframe-help">Timeframes are selected by the owner for this pickup date.</p>
+          </div>
+        </fieldset>
+
+        <label class="policy-agreement">
+          <input type="checkbox" id="eightPolicyAgreement" required>
+          <span>I have read and agree to the <button type="button" class="inline-policy-button open-policy-link">Baked with Hope Order Policy</button>.</span>
+        </label>
+
+        <div class="total-box">
+          <h3>Total: <span id="eightTotalDisplay">$35.00</span></h3>
+          <p id="eightPaymentInstructions">Choose a payment method to see instructions.</p>
+        </div>
+
+        <button type="submit" id="submitEightOrderButton">Send 8×8 Cake Order</button>
+        <p id="eightFormMessage" aria-live="polite"></p>
+      </form>
+    </div>
   </div>
 </section>
 
@@ -781,6 +988,48 @@ const state = {
   visibleMonth: new Date(new Date().getFullYear(), new Date().getMonth(), 1)
 };
 
+const eightState = {
+  selectedDate: "",
+  visibleMonth: new Date(new Date().getFullYear(), new Date().getMonth(), 1)
+};
+
+const EIGHT_BASE_PRICE = 35;
+const EIGHT_TRES_PRICE = 4;
+const EIGHT_TOPPER_PRICE = 2;
+const EIGHT_GLITTER_PRICE = 2;
+const EIGHT_GIFT_PACKAGING_PRICE = 2;
+
+const eightRibbonColors = [
+  ["Gold Glitter", "swatch-gold-glitter", ""],
+  ["Silver Glitter", "swatch-silver-glitter", ""],
+  ["White", "", "#ffffff"],
+  ["Silver", "", "#b9bcc3"],
+  ["Light Pink", "", "#f5b8cf"],
+  ["Hot Pink", "", "#df4f8e"],
+  ["Yellow", "", "#ead952"],
+  ["Gold", "", "#d1a13a"],
+  ["Peach", "", "#f3a081"],
+  ["Orange", "", "#e96c35"],
+  ["Red", "", "#c82f38"],
+  ["Burgundy", "", "#7d2331"],
+  ["Green", "", "#3ca55c"],
+  ["Dark Green", "", "#245f3f"],
+  ["Light Blue", "", "#83c7e7"],
+  ["Royal Blue", "", "#2467bf"],
+  ["Navy Blue", "", "#233d6b"],
+  ["Purple", "", "#8049a7"],
+  ["Black", "", "#171717"]
+];
+
+const eightCardColors = [
+  ["Dusty Rose", "#d99b9d"],
+  ["Taupe Gray", "#aaa29c"],
+  ["Blush Pink", "#efd1c7"],
+  ["Powder Blue", "#b9d4de"],
+  ["Soft Peach", "#f2cfac"],
+  ["Sage Green", "#c8d0bb"]
+];
+
 const orderForm = document.getElementById("orderForm");
 const boxBuilder = document.getElementById("boxBuilder");
 const numberOfBoxes = document.getElementById("numberOfBoxes");
@@ -793,6 +1042,39 @@ const pickupDateInput = document.getElementById("pickupDate");
 const calendar = document.getElementById("pickupCalendar");
 const pickupTimeframeArea = document.getElementById("pickupTimeframeArea");
 const pickupTimeframeSelect = document.getElementById("pickupTimeframe");
+
+const orderCategoryChooser = document.getElementById("orderCategoryChooser");
+const miniOrderShell = document.getElementById("miniOrderShell");
+const eightOrderShell = document.getElementById("eightOrderShell");
+const eightOrderForm = document.getElementById("eightOrderForm");
+const eightFlavorSelect = document.getElementById("eightFlavor");
+const eightTresLeches = document.getElementById("eightTresLeches");
+const eightTresNote = document.getElementById("eightTresNote");
+const eightTopper = document.getElementById("eightTopper");
+const eightTopperFields = document.getElementById("eightTopperFields");
+const eightTopperColor = document.getElementById("eightTopperColor");
+const eightGlitter = document.getElementById("eightGlitter");
+const eightGlitterFields = document.getElementById("eightGlitterFields");
+const eightGlitterColor = document.getElementById("eightGlitterColor");
+const eightGiftPackaging = document.getElementById("eightGiftPackaging");
+const eightGiftPackagingFields = document.getElementById("eightGiftPackagingFields");
+const eightRibbonColor = document.getElementById("eightRibbonColor");
+const eightRibbonColorGrid = document.getElementById("eightRibbonColorGrid");
+const eightSelectedRibbonColor = document.getElementById("eightSelectedRibbonColor");
+const eightCardColor = document.getElementById("eightCardColor");
+const eightCardColorGrid = document.getElementById("eightCardColorGrid");
+const eightSelectedCardColor = document.getElementById("eightSelectedCardColor");
+const eightCardMessage = document.getElementById("eightCardMessage");
+const eightPayment = document.getElementById("eightPayment");
+const eightPaymentInstructions = document.getElementById("eightPaymentInstructions");
+const eightPickupDate = document.getElementById("eightPickupDate");
+const eightPickupCalendar = document.getElementById("eightPickupCalendar");
+const eightSelectedPickupDate = document.getElementById("eightSelectedPickupDate");
+const eightPickupTimeframeArea = document.getElementById("eightPickupTimeframeArea");
+const eightPickupTimeframe = document.getElementById("eightPickupTimeframe");
+const eightTotalDisplay = document.getElementById("eightTotalDisplay");
+const eightFormMessage = document.getElementById("eightFormMessage");
+const submitEightOrderButton = document.getElementById("submitEightOrderButton");
 
 const customPackagingDetails = document.getElementById("customPackagingDetails");
 const packagingOccasionInput = document.getElementById("packagingOccasion");
@@ -861,6 +1143,9 @@ if (!data.acceptingOrders) {
     data.statusMessage ||
     "Ordering is temporarily paused.";
 
+  orderCategoryChooser.hidden = true;
+  miniOrderShell.hidden = true;
+  eightOrderShell.hidden = true;
   orderForm.hidden = true;
   return;
 }
@@ -868,11 +1153,17 @@ if (!data.acceptingOrders) {
     if (state.approvedDates.size === 0) {
       title.textContent = "New pickup dates are coming soon.";
       text.textContent = "The owner has not released any pickup dates yet. Please check back soon.";
+      orderCategoryChooser.hidden = true;
+      miniOrderShell.hidden = true;
+      eightOrderShell.hidden = true;
       orderForm.hidden = true;
       return;
     }
 
 orderForm.hidden = false;
+orderCategoryChooser.hidden = false;
+miniOrderShell.hidden = true;
+eightOrderShell.hidden = true;
 
 title.textContent = "🧁 Now accepting orders!";
 
@@ -903,9 +1194,563 @@ text.innerHTML = `
       </span>
     `;
 
+    orderCategoryChooser.hidden = true;
+    miniOrderShell.hidden = true;
+    eightOrderShell.hidden = true;
     orderForm.hidden = true;
   }
 }
+
+
+function showOrderCategory(category) {
+  orderCategoryChooser.hidden = true;
+  miniOrderShell.hidden = category !== "mini";
+  eightOrderShell.hidden = category !== "8x8";
+
+  if (category === "mini") {
+    renderBoxes();
+    renderCalendar();
+  }
+
+  if (category === "8x8") {
+    populateEightFlavorOptions();
+    renderEightColorPickers();
+    updateEightAddonFields();
+    updateEightTotal();
+    renderEightCalendar();
+  }
+
+  document.getElementById("orders").scrollIntoView({
+    behavior: "smooth",
+    block: "start"
+  });
+}
+
+function showOrderChooser() {
+  miniOrderShell.hidden = true;
+  eightOrderShell.hidden = true;
+  orderCategoryChooser.hidden = false;
+  eightFormMessage.textContent = "";
+}
+
+document.querySelectorAll("[data-order-category]").forEach(button => {
+  button.addEventListener("click", () => {
+    showOrderCategory(button.dataset.orderCategory);
+  });
+});
+
+document.querySelectorAll("[data-back-to-order-types]").forEach(button => {
+  button.addEventListener("click", showOrderChooser);
+});
+
+function populateEightFlavorOptions() {
+  if (eightFlavorSelect.options.length > 1) return;
+
+  flavors.forEach(flavor => {
+    const option = document.createElement("option");
+    option.value = flavor;
+    option.textContent = flavor;
+    eightFlavorSelect.appendChild(option);
+  });
+}
+
+function renderEightColorPickers() {
+  if (!eightRibbonColorGrid.children.length) {
+    eightRibbonColorGrid.innerHTML = eightRibbonColors.map(([name, className, color]) => `
+      <label class="packaging-color-choice">
+        <input type="radio" name="eightRibbonColorChoice" value="${name}">
+        <span
+          class="packaging-swatch ${className}"
+          ${color ? `style="--swatch-color:${color}"` : ""}
+          aria-hidden="true"
+        ></span>
+        <span>${name}</span>
+      </label>
+    `).join("");
+
+    eightRibbonColorGrid.querySelectorAll('input[name="eightRibbonColorChoice"]').forEach(input => {
+      input.addEventListener("change", () => {
+        eightRibbonColor.value = input.value;
+        eightSelectedRibbonColor.textContent = "Selected ribbon: " + input.value;
+      });
+    });
+  }
+
+  if (!eightCardColorGrid.children.length) {
+    eightCardColorGrid.innerHTML = eightCardColors.map(([name, color]) => `
+      <label class="packaging-color-choice">
+        <input type="radio" name="eightCardColorChoice" value="${name}">
+        <span class="packaging-swatch" style="--swatch-color:${color}" aria-hidden="true"></span>
+        <span>${name}</span>
+      </label>
+    `).join("");
+
+    eightCardColorGrid.querySelectorAll('input[name="eightCardColorChoice"]').forEach(input => {
+      input.addEventListener("change", () => {
+        eightCardColor.value = input.value;
+        eightSelectedCardColor.textContent = "Selected card: " + input.value;
+      });
+    });
+  }
+}
+
+function resetEightColorChoice(name, hiddenInput, label) {
+  document.querySelectorAll(`input[name="${name}"]`).forEach(input => {
+    input.checked = false;
+  });
+
+  hiddenInput.value = "";
+  label.textContent =
+    name === "eightRibbonColorChoice"
+      ? "No ribbon color selected."
+      : "No card color selected.";
+}
+
+function updateEightAddonFields() {
+  const saltedCaramel =
+    eightFlavorSelect.value === "Salted Caramel Tres Leches";
+
+  eightTresLeches.disabled = saltedCaramel;
+  eightTresNote.hidden = !saltedCaramel;
+
+  if (saltedCaramel) {
+    eightTresLeches.checked = false;
+  }
+
+  eightTopperFields.hidden = !eightTopper.checked;
+  eightTopperColor.required = eightTopper.checked;
+
+  if (!eightTopper.checked) {
+    eightTopperColor.value = "";
+  }
+
+  eightGlitterFields.hidden = !eightGlitter.checked;
+  eightGlitterColor.required = eightGlitter.checked;
+
+  if (!eightGlitter.checked) {
+    eightGlitterColor.value = "";
+  }
+
+  eightGiftPackagingFields.hidden = !eightGiftPackaging.checked;
+  eightCardMessage.required = eightGiftPackaging.checked;
+
+  if (!eightGiftPackaging.checked) {
+    resetEightColorChoice(
+      "eightRibbonColorChoice",
+      eightRibbonColor,
+      eightSelectedRibbonColor
+    );
+
+    resetEightColorChoice(
+      "eightCardColorChoice",
+      eightCardColor,
+      eightSelectedCardColor
+    );
+
+    eightCardMessage.value = "";
+  }
+
+  updateEightTotal();
+}
+
+function calculateEightTotal() {
+  let total = EIGHT_BASE_PRICE;
+
+  if (eightTresLeches.checked && !eightTresLeches.disabled) {
+    total += EIGHT_TRES_PRICE;
+  }
+
+  if (eightTopper.checked) {
+    total += EIGHT_TOPPER_PRICE;
+  }
+
+  if (eightGlitter.checked) {
+    total += EIGHT_GLITTER_PRICE;
+  }
+
+  if (eightGiftPackaging.checked) {
+    total += EIGHT_GIFT_PACKAGING_PRICE;
+  }
+
+  return total;
+}
+
+function updateEightTotal() {
+  eightTotalDisplay.textContent = money(calculateEightTotal());
+}
+
+function renderEightCalendar() {
+  const year = eightState.visibleMonth.getFullYear();
+  const month = eightState.visibleMonth.getMonth();
+  const firstDay = new Date(year, month, 1).getDay();
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  const monthLabel = eightState.visibleMonth.toLocaleDateString(
+    undefined,
+    { month: "long", year: "numeric" }
+  );
+
+  eightPickupCalendar.innerHTML = `
+    <div class="calendar-header">
+      <button type="button" class="calendar-nav" data-eight-month-change="-1" aria-label="Previous month">‹</button>
+      <h3>${monthLabel}</h3>
+      <button type="button" class="calendar-nav" data-eight-month-change="1" aria-label="Next month">›</button>
+    </div>
+    <div class="calendar-grid calendar-weekdays">
+      ${["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map(day => `<span>${day}</span>`).join("")}
+    </div>
+    <div class="calendar-grid calendar-days"></div>`;
+
+  const dayGrid = eightPickupCalendar.querySelector(".calendar-days");
+
+  for (let i = 0; i < firstDay; i++) {
+    dayGrid.insertAdjacentHTML(
+      "beforeend",
+      '<span class="calendar-blank"></span>'
+    );
+  }
+
+  for (let day = 1; day <= daysInMonth; day++) {
+    const iso = formatIsoDate(new Date(year, month, day));
+    const approved = state.approvedDates.has(iso);
+    const weekSoldOut = state.soldOutWeeks.has(weekKeyFromIso(iso));
+    const enabled = approved && !weekSoldOut;
+    const selected = eightState.selectedDate === iso;
+
+    dayGrid.insertAdjacentHTML(
+      "beforeend",
+      `<button
+        type="button"
+        class="calendar-day${selected ? " selected" : ""}"
+        data-eight-date="${iso}"
+        ${enabled ? "" : "disabled"}
+        aria-label="${iso}${weekSoldOut ? ", sold out" : approved ? ", available" : ", unavailable"}"
+      >${day}</button>`
+    );
+  }
+
+  eightPickupCalendar
+    .querySelectorAll("[data-eight-month-change]")
+    .forEach(button => {
+      button.addEventListener("click", () => {
+        eightState.visibleMonth =
+          new Date(
+            year,
+            month + Number(button.dataset.eightMonthChange),
+            1
+          );
+
+        renderEightCalendar();
+      });
+    });
+
+  eightPickupCalendar
+    .querySelectorAll(".calendar-day:not(:disabled)")
+    .forEach(button => {
+      button.addEventListener("click", () => {
+        eightState.selectedDate = button.dataset.eightDate;
+        eightPickupDate.value = eightState.selectedDate;
+
+        renderEightPickupTimeframes(
+          eightState.selectedDate
+        );
+
+        eightSelectedPickupDate.textContent =
+          "Selected pickup date: " +
+          new Date(
+            `${eightState.selectedDate}T12:00:00`
+          ).toLocaleDateString(
+            undefined,
+            {
+              weekday: "long",
+              month: "long",
+              day: "numeric",
+              year: "numeric"
+            }
+          );
+
+        renderEightCalendar();
+      });
+    });
+}
+
+function renderEightPickupTimeframes(isoDate) {
+  const timeframes =
+    state.dateTimeframes[isoDate] || [];
+
+  eightPickupTimeframe.innerHTML =
+    '<option value="">Choose a pickup timeframe</option>';
+
+  timeframes.forEach(timeframe => {
+    const option =
+      document.createElement("option");
+
+    option.value = timeframe;
+    option.textContent = timeframe;
+
+    eightPickupTimeframe.appendChild(
+      option
+    );
+  });
+
+  eightPickupTimeframeArea.hidden =
+    timeframes.length === 0;
+
+  eightPickupTimeframe.required =
+    timeframes.length > 0;
+
+  eightPickupTimeframe.value = "";
+
+  if (timeframes.length === 0) {
+    eightFormMessage.textContent =
+      "This date does not have a pickup timeframe yet. Please choose another date.";
+  } else {
+    eightFormMessage.textContent = "";
+  }
+}
+
+function updateEightPayment() {
+  const messages = {
+    "Venmo": "Send payment to Venmo: @ttina003",
+    "Cash App": "Send payment to Cash App: $ttina003",
+    "Zelle": "Send payment through Zelle: 617-888-3636",
+    "Cash": "Cash accepted at pickup/delivery."
+  };
+
+  eightPaymentInstructions.textContent =
+    messages[eightPayment.value] ||
+    "Choose a payment method to see instructions.";
+}
+
+function buildEightOrderData() {
+  if (!eightState.selectedDate) {
+    throw new Error(
+      "Please select an available pickup date."
+    );
+  }
+
+  if (!eightPickupTimeframe.value) {
+    throw new Error(
+      "Please select a pickup timeframe."
+    );
+  }
+
+  if (
+    eightTopper.checked &&
+    !eightTopperColor.value
+  ) {
+    throw new Error(
+      "Please choose a cake topper color."
+    );
+  }
+
+  if (
+    eightGlitter.checked &&
+    !eightGlitterColor.value
+  ) {
+    throw new Error(
+      "Please choose an edible glitter color."
+    );
+  }
+
+  if (eightGiftPackaging.checked) {
+    if (!eightRibbonColor.value) {
+      throw new Error(
+        "Please choose a ribbon color."
+      );
+    }
+
+    if (!eightCardColor.value) {
+      throw new Error(
+        "Please choose a card color."
+      );
+    }
+
+    if (!eightCardMessage.value.trim()) {
+      throw new Error(
+        "Please enter your custom card message."
+      );
+    }
+  }
+
+  const addOns = [];
+
+  if (
+    eightTresLeches.checked &&
+    !eightTresLeches.disabled
+  ) {
+    addOns.push(
+      "Tres Leches (+$4.00)"
+    );
+  }
+
+  if (eightTopper.checked) {
+    addOns.push(
+      `Cake Topper — ${eightTopperColor.value} (+$2.00)`
+    );
+  }
+
+  if (eightGlitter.checked) {
+    addOns.push(
+      `Edible Glitter Spray — ${eightGlitterColor.value} (+$2.00)`
+    );
+  }
+
+  if (eightGiftPackaging.checked) {
+    addOns.push(
+      `Ribbon + Custom Card (+$2.00) — Ribbon: ${eightRibbonColor.value}; Card: ${eightCardColor.value}; Message: ${eightCardMessage.value.trim()}`
+    );
+  }
+
+  const occasion =
+    document.getElementById(
+      "eightOccasion"
+    ).value.trim();
+
+  const designNotes =
+    document.getElementById(
+      "eightDesignNotes"
+    ).value.trim();
+
+  const detailLines = [
+    `Flavor: ${eightFlavorSelect.value}`,
+    `Occasion: ${occasion}`,
+    `Add-ons: ${addOns.length ? addOns.join(" | ") : "None"}`,
+    designNotes
+      ? `Design / Special Requests: ${designNotes}`
+      : ""
+  ].filter(Boolean);
+
+  return {
+    action: "submitOrder",
+    orderType: "8x8 Cake",
+    name: document.getElementById("eightName").value.trim(),
+    phone: document.getElementById("eightPhone").value.trim(),
+    email: document.getElementById("eightEmail").value.trim(),
+    flavor: detailLines.join("\n"),
+    box: "8×8 Cake Order",
+    quantity: 1,
+    total: calculateEightTotal().toFixed(2),
+    payment: eightPayment.value,
+    pickupDate: eightState.selectedDate,
+    pickupTimeframe: eightPickupTimeframe.value,
+    notes: designNotes,
+    customPackaging: {
+      enabled: false,
+      occasion: "",
+      option: "",
+      price: 0,
+      ribbonColor: "",
+      cardMessage: ""
+    },
+    policyAccepted: true
+  };
+}
+
+eightFlavorSelect.addEventListener(
+  "change",
+  updateEightAddonFields
+);
+
+[
+  eightTresLeches,
+  eightTopper,
+  eightGlitter,
+  eightGiftPackaging
+].forEach(input => {
+  input.addEventListener(
+    "change",
+    updateEightAddonFields
+  );
+});
+
+eightPayment.addEventListener(
+  "change",
+  updateEightPayment
+);
+
+eightOrderForm.addEventListener(
+  "submit",
+  async event => {
+    event.preventDefault();
+    eightFormMessage.textContent = "";
+
+    try {
+      if (!eightOrderForm.reportValidity()) {
+        return;
+      }
+
+      const orderData =
+        buildEightOrderData();
+
+      submitEightOrderButton.disabled =
+        true;
+
+      eightFormMessage.textContent =
+        "Sending your order…";
+
+      const response =
+        await fetch(
+          scriptURL,
+          {
+            method: "POST",
+            body: JSON.stringify(orderData)
+          }
+        );
+
+      const result =
+        await response.json();
+
+      if (!result.ok) {
+        throw new Error(
+          result.message ||
+          "The order could not be submitted."
+        );
+      }
+
+      eightFormMessage.textContent =
+        `Order ${result.orderNumber} received! A confirmation was sent to your email. Please complete payment using the instructions above.`;
+
+      eightOrderForm.reset();
+
+      eightState.selectedDate = "";
+      eightPickupDate.value = "";
+      eightSelectedPickupDate.textContent =
+        "No pickup date selected.";
+
+      eightPickupTimeframe.innerHTML =
+        '<option value="">Choose a pickup timeframe</option>';
+
+      eightPickupTimeframeArea.hidden =
+        true;
+
+      resetEightColorChoice(
+        "eightRibbonColorChoice",
+        eightRibbonColor,
+        eightSelectedRibbonColor
+      );
+
+      resetEightColorChoice(
+        "eightCardColorChoice",
+        eightCardColor,
+        eightSelectedCardColor
+      );
+
+      updateEightAddonFields();
+      updateEightPayment();
+      renderEightCalendar();
+
+      await loadOrderingState();
+
+    } catch (error) {
+      eightFormMessage.textContent =
+        error.message;
+
+    } finally {
+      submitEightOrderButton.disabled =
+        false;
+    }
+  }
+);
 
 function renderBoxes() {
   const amount = Number(numberOfBoxes.value);
@@ -962,8 +1807,26 @@ function renderBoxes() {
             </div>
           </div>`).join("")}
 
+        <div class="sampler-tres-area" data-sampler-tres-area="${i}" hidden>
+          <label class="sampler-tres-option">
+            <input
+              type="checkbox"
+              class="sampler-tres-upgrade"
+              data-box="${i}"
+            >
+            <span>
+              Make the 7 eligible Sampler cakes tres leches
+              +${money((flavors.length - NO_TRES_OPTION.length) * TRES_UPGRADE_PRICE)}
+            </span>
+          </label>
+
+          <small>
+            Salted Caramel Tres Leches already includes tres leches, so there is no extra charge for that cake.
+          </small>
+        </div>
+
         <small class="sampler-note" data-sampler-note="${i}" hidden>
-          Sampler boxes automatically include one of each of the 8 flavors. Choose Tres Leches separately for any eligible flavor below.
+          Sampler boxes automatically include one of each of the 8 flavors.
         </small>
 
         <small class="build-eight-note" data-build-eight-note="${i}" hidden>
@@ -997,28 +1860,8 @@ function resetFlavorArea(flavorArea, isSampler) {
     input.disabled = true;
   });
 
-}
-
-function configureSamplerFlavorOptions(flavorArea) {
-  flavorArea.querySelectorAll(".flavor-option").forEach(option => {
-    const flavor = option.dataset.flavorCard;
-    const details = option.querySelector(".flavor-selection-details");
-    const quantityLabel = option.querySelector(".flavor-quantity-label");
-    const tresInput = option.querySelector(".tres-option input");
-
-    if (details) details.hidden = false;
-    if (quantityLabel) quantityLabel.hidden = true;
-
-    if (tresInput) {
-      tresInput.disabled = false;
-      tresInput.checked = false;
-    }
-  });
-}
-
-function restoreStandardFlavorOptions(flavorArea) {
-  flavorArea.querySelectorAll(".flavor-quantity-label").forEach(label => {
-    label.hidden = false;
+  flavorArea.querySelectorAll(".sampler-tres-upgrade").forEach(input => {
+    input.checked = false;
   });
 }
 
@@ -1032,15 +1875,12 @@ function attachBoxListeners() {
       const isBuildEight = boxName === "Build Your Own 8 Pack";
 
       resetFlavorArea(flavorArea, isSampler);
-      restoreStandardFlavorOptions(flavorArea);
 
+      const samplerTresArea = document.querySelector(`[data-sampler-tres-area="${boxNumber}"]`);
       const samplerNote = document.querySelector(`[data-sampler-note="${boxNumber}"]`);
       const buildEightNote = document.querySelector(`[data-build-eight-note="${boxNumber}"]`);
 
-      if (isSampler) {
-        configureSamplerFlavorOptions(flavorArea);
-      }
-
+      if (samplerTresArea) samplerTresArea.hidden = !isSampler;
       if (samplerNote) samplerNote.hidden = !isSampler;
       if (buildEightNote) buildEightNote.hidden = !isBuildEight;
 
@@ -1083,6 +1923,9 @@ function attachBoxListeners() {
     input.addEventListener("change", updateTotal);
   });
 
+  document.querySelectorAll(".sampler-tres-upgrade").forEach(input => {
+    input.addEventListener("change", updateTotal);
+  });
 }
 
 function getPackagingPrice() {
@@ -1113,6 +1956,17 @@ function calculateOrderTotal() {
       total += SALTED_CARAMEL_SINGLE_SURCHARGE;
     }
 
+    if (boxName === "Sampler Box") {
+      const samplerTres = document.querySelector(
+        `.sampler-tres-upgrade[data-box="${boxNumber}"]`
+      );
+
+      if (samplerTres?.checked) {
+        total +=
+          (flavors.length - NO_TRES_OPTION.length) *
+          TRES_UPGRADE_PRICE;
+      }
+    }
   });
 
   document.querySelectorAll(".tres-option input:checked").forEach(input => {
@@ -1407,24 +2261,21 @@ function buildOrderData() {
     let tresCost = 0;
 
     if (isSampler) {
-      const samplerFlavorLines = flavors.map(flavor => {
-        if (NO_TRES_OPTION.includes(flavor)) {
-          return `${flavor}: 1 — already tres leches`;
-        }
+      const samplerTresInput = document.querySelector(
+        `.sampler-tres-upgrade[data-box="${boxNumber}"]`
+      );
 
-        const tresInput = document.querySelector(
-          `input[name="tres-${boxNumber}"][data-tres-for="${CSS.escape(flavor)}"]`
-        );
-        const isTresUpgrade = Boolean(tresInput?.checked);
+      if (samplerTresInput?.checked) {
+        const eligibleSamplerCakes =
+          flavors.length - NO_TRES_OPTION.length;
 
-        if (isTresUpgrade) {
-          tresCost += TRES_UPGRADE_PRICE;
-        }
+        tresCost =
+          eligibleSamplerCakes *
+          TRES_UPGRADE_PRICE;
 
-        return `${flavor}: 1${isTresUpgrade ? " — tres leches" : ""}`;
-      });
-
-      flavorText = samplerFlavorLines.join(", ");
+        flavorText +=
+          " — 7 eligible flavors made tres leches; Salted Caramel Tres Leches already includes tres leches";
+      }
     }
 
     if (!isSampler) {
@@ -1502,6 +2353,7 @@ function buildOrderData() {
 
   return {
     action: "submitOrder",
+    orderType: "Mini Cakes",
     name: document.getElementById("name").value.trim(),
     phone: document.getElementById("phone").value.trim(),
     email: document.getElementById("email").value.trim(),
@@ -1620,4 +2472,3 @@ loadOrderingState();
 
 </body>
 </html>
-   
