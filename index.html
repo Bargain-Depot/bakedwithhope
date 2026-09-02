@@ -6,7 +6,7 @@
 
   <title>Baked with Hope | Mini Cakes Made with Love</title>
 
-  <link rel="stylesheet" href="style.css?v=16">
+  <link rel="stylesheet" href="style.css?v=17">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1002,7 +1002,8 @@ const state = {
   dateTimeframes: {},
   soldOutWeeks: new Set(),
   selectedDate: "",
-  visibleMonth: new Date(new Date().getFullYear(), new Date().getMonth(), 1)
+  visibleMonth: new Date(new Date().getFullYear(), new Date().getMonth(), 1),
+  acceptingOrders: false
 };
 
 const eightState = {
@@ -1141,6 +1142,37 @@ async function apiGet(action) {
   return data;
 }
 
+function setOrderSubmissionAvailability(isOpen) {
+  state.acceptingOrders = Boolean(isOpen);
+
+  if (submitButton) {
+    submitButton.disabled = !state.acceptingOrders;
+    submitButton.textContent =
+      state.acceptingOrders
+        ? "Submit Order"
+        : "Ordering Currently Closed";
+  }
+
+  if (submitEightOrderButton) {
+    submitEightOrderButton.disabled =
+      !state.acceptingOrders;
+
+    submitEightOrderButton.textContent =
+      state.acceptingOrders
+        ? "Send 8×8 Cake Order"
+        : "Ordering Currently Closed";
+  }
+
+  document
+    .querySelectorAll(".order-form-shell")
+    .forEach(shell => {
+      shell.classList.toggle(
+        "order-preview-mode",
+        !state.acceptingOrders
+      );
+    });
+}
+
 async function loadOrderingState() {
   const title = document.getElementById("orderStatusTitle");
   const text = document.getElementById("orderStatusText");
@@ -1156,24 +1188,47 @@ if (!data.acceptingOrders) {
     data.statusTitle ||
     "🌸 Orders are currently closed";
 
-  text.textContent =
-    data.statusMessage ||
-    "Ordering is temporarily paused.";
+  text.innerHTML = `
+    ${data.statusMessage || "Ordering is temporarily paused."}
+    <br><br>
+    <span class="availability-pill">
+      💗 You can still view both order forms and plan your order below.
+    </span>
+  `;
 
-  orderCategoryChooser.hidden = true;
+  orderForm.hidden = false;
+  orderCategoryChooser.hidden = false;
   miniOrderShell.hidden = true;
   eightOrderShell.hidden = true;
-  orderForm.hidden = true;
+
+  setOrderSubmissionAvailability(false);
+
+  renderBoxes();
+  renderCalendar();
+  renderEightCalendar();
   return;
 }
 
     if (state.approvedDates.size === 0) {
       title.textContent = "New pickup dates are coming soon.";
-      text.textContent = "The owner has not released any pickup dates yet. Please check back soon.";
-      orderCategoryChooser.hidden = true;
+      text.innerHTML = `
+        The owner has not released any pickup dates yet. Please check back soon.
+        <br><br>
+        <span class="availability-pill">
+          💗 The order forms are still available to preview below.
+        </span>
+      `;
+
+      orderForm.hidden = false;
+      orderCategoryChooser.hidden = false;
       miniOrderShell.hidden = true;
       eightOrderShell.hidden = true;
-      orderForm.hidden = true;
+
+      setOrderSubmissionAvailability(false);
+
+      renderBoxes();
+      renderCalendar();
+      renderEightCalendar();
       return;
     }
 
@@ -1181,6 +1236,8 @@ orderForm.hidden = false;
 orderCategoryChooser.hidden = false;
 miniOrderShell.hidden = true;
 eightOrderShell.hidden = true;
+
+setOrderSubmissionAvailability(true);
 
 title.textContent = "🧁 Now accepting orders!";
 
@@ -1211,10 +1268,16 @@ text.innerHTML = `
       </span>
     `;
 
-    orderCategoryChooser.hidden = true;
+    orderForm.hidden = false;
+    orderCategoryChooser.hidden = false;
     miniOrderShell.hidden = true;
     eightOrderShell.hidden = true;
-    orderForm.hidden = true;
+
+    setOrderSubmissionAvailability(false);
+
+    renderBoxes();
+    renderCalendar();
+    renderEightCalendar();
   }
 }
 
@@ -1692,6 +1755,12 @@ eightOrderForm.addEventListener(
     eightFormMessage.textContent = "";
 
     try {
+      if (!state.acceptingOrders) {
+        throw new Error(
+          "Ordering is currently closed. You can preview the form, but orders cannot be submitted yet."
+        );
+      }
+
       if (!eightOrderForm.reportValidity()) {
         return;
       }
@@ -2392,6 +2461,12 @@ orderForm.addEventListener("submit", async event => {
   formMessage.textContent = "";
 
   try {
+    if (!state.acceptingOrders) {
+      throw new Error(
+        "Ordering is currently closed. You can preview the form, but orders cannot be submitted yet."
+      );
+    }
+
     if (!orderForm.reportValidity()) return;
     const orderData = buildOrderData();
     submitButton.disabled = true;
