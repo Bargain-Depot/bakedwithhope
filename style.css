@@ -4324,3 +4324,110 @@ select {
     gap: 2px;
   }
 }
+
+
+/* =========================================================
+   8×8 CAKE PHOTO
+   ========================================================= */
+
+.order-category-card-photo {
+  padding: 0;
+  overflow: hidden;
+  justify-content: flex-start;
+}
+
+.order-category-photo-wrap {
+  width: 100%;
+  height: 230px;
+  display: block;
+  overflow: hidden;
+  border-bottom: 3px solid var(--soft-pink);
+  background: var(--pale-pink);
+}
+
+.order-category-photo {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.3s ease;
+}
+
+.order-category-card-photo:hover .order-category-photo {
+  transform: scale(1.035);
+}
+
+.order-category-card-photo .order-category-title,
+.order-category-card-photo .order-category-copy,
+.order-category-card-photo .order-category-price,
+.order-category-card-photo .order-category-action {
+  margin-left: 24px;
+  margin-right: 24px;
+}
+
+.order-category-card-photo .order-category-title {
+  margin-top: 18px;
+}
+
+.order-category-card-photo .order-category-action {
+  margin-bottom: 24px;
+}
+
+.order-category-price {
+  color: var(--brown);
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.08rem;
+  font-weight: 700;
+}
+
+.eight-order-hero {
+  display: grid;
+  grid-template-columns: minmax(220px, 0.8fr) minmax(0, 1.2fr);
+  gap: 24px;
+  align-items: center;
+  margin-bottom: 10px;
+  padding: 18px;
+  background: var(--pale-pink);
+  border: 3px solid var(--soft-pink);
+  border-radius: 24px;
+}
+
+.eight-order-hero-image {
+  overflow: hidden;
+  border: 3px solid var(--medium-pink);
+  border-radius: 20px;
+  box-shadow: 6px 6px 0 var(--soft-pink);
+  background: var(--white);
+}
+
+.eight-order-hero-image img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  display: block;
+  object-fit: cover;
+  object-position: center;
+}
+
+.eight-order-hero-copy {
+  margin: 0;
+}
+
+@media (max-width: 700px) {
+  .order-category-photo-wrap {
+    height: 210px;
+  }
+
+  .eight-order-hero {
+    grid-template-columns: 1fr;
+  }
+
+  .eight-order-hero-image {
+    max-width: 420px;
+    margin: 0 auto;
+  }
+
+  .eight-order-hero-copy {
+    text-align: center;
+  }
+}
