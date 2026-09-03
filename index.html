@@ -6,7 +6,7 @@
 
   <title>Baked with Hope | Mini Cakes Made with Love</title>
 
-  <link rel="stylesheet" href="style.css?v=18">
+  <link rel="stylesheet" href="style.css?v=19">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -23,7 +23,7 @@
 
     <div class="nav-links">
       <a href="#story">My Story</a>
-      <a href="#cakes">Cakes of the Week</a>
+      <a href="#cakes">Cakes</a>
       <a href="#orders">Order</a>
       <a href="order-policy.html" class="open-policy-link">Order Policy</a>
       <a href="#reviews">Reviews</a>
@@ -622,12 +622,6 @@
             required
           >
 
-          <label for="eightDesignNotes">Cake design / special requests</label>
-          <textarea
-            id="eightDesignNotes"
-            maxlength="500"
-            placeholder="Tell us about the theme, wording, colors, or any details you want Tina to know."
-          ></textarea>
         </fieldset>
 
         <fieldset class="eight-cake-options">
@@ -1679,18 +1673,10 @@ function buildEightOrderData() {
       "eightOccasion"
     ).value.trim();
 
-  const designNotes =
-    document.getElementById(
-      "eightDesignNotes"
-    ).value.trim();
-
   const detailLines = [
     `Flavor: ${eightFlavorSelect.value}`,
     `Occasion: ${occasion}`,
-    `Add-ons: ${addOns.length ? addOns.join(" | ") : "None"}`,
-    designNotes
-      ? `Design / Special Requests: ${designNotes}`
-      : ""
+    `Add-ons: ${addOns.length ? addOns.join(" | ") : "None"}`
   ].filter(Boolean);
 
   return {
@@ -1706,7 +1692,7 @@ function buildEightOrderData() {
     payment: eightPayment.value,
     pickupDate: eightState.selectedDate,
     pickupTimeframe: eightPickupTimeframe.value,
-    notes: designNotes,
+    notes: "",
     customPackaging: {
       enabled: false,
       occasion: "",
