@@ -4513,3 +4513,52 @@ select {
     max-height: 440px;
   }
 }
+
+
+/* =========================================================
+   MATCHING ORDER CHOICE CARDS
+   ========================================================= */
+
+.order-category-grid {
+  align-items: stretch;
+}
+
+.order-category-card {
+  min-height: 330px;
+  height: 100%;
+  padding: 34px 30px;
+  justify-content: center;
+}
+
+.order-category-icon {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 3rem;
+  line-height: 1;
+}
+
+.order-category-title {
+  margin: 0;
+}
+
+.order-category-copy {
+  max-width: 460px;
+}
+
+.order-category-price {
+  margin: 2px 0 0;
+  font-family: 'Nanum Myeongjo', serif;
+  font-size: 1rem;
+  font-weight: 900;
+  color: var(--brown);
+}
+
+.order-category-action {
+  margin-top: 8px;
+}
+
+@media (max-width: 650px) {
+  .order-category-card {
+    min-height: 260px;
+  }
+}
