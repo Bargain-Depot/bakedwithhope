@@ -6,7 +6,7 @@
 
   <title>Baked with Hope | Mini Cakes Made with Love</title>
 
-  <link rel="stylesheet" href="style.css?v=19">
+  <link rel="stylesheet" href="style.css?v=20">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -236,7 +236,7 @@
       <div class="order-category-heading">
         <p class="mini-label">Choose your order</p>
         <h2>What would you like to order?</h2>
-        <p>Mini cakes and 8×8 cakes use separate forms so each order is easy to customize.</p>
+        <p>Choose regular mini cakes, a regular 8×8 cake, or a UMass Boston campus order.</p>
       </div>
 
       <div class="order-category-grid">
@@ -254,11 +254,50 @@
           <span class="order-category-price">Starting at $35</span>
           <span class="order-category-action">Order an 8×8 Cake →</span>
         </button>
+
+        <button type="button" class="order-category-card umass-order-card" data-order-category="umass">
+          <span class="order-category-icon" aria-hidden="true">🎓</span>
+          <span class="order-category-title">UMass Boston Orders</span>
+          <span class="order-category-copy">Campus pickup for UMass Boston students &amp; professors.</span>
+          <span class="order-category-action">Start a UMass Order →</span>
+        </button>
+      </div>
+    </div>
+
+    <div id="umassOrderChooser" class="order-form-shell umass-order-chooser" hidden>
+      <button type="button" class="back-to-order-types" data-back-to-main-order-types>← Back to order types</button>
+
+      <div class="umass-order-intro">
+        <p class="mini-label">UMass Boston Orders</p>
+        <h2>Choose your campus order</h2>
+        <p>
+          For UMass Boston students &amp; professors only. Tina will choose the campus pickup dates and timeframes based on her class schedule.
+        </p>
+      </div>
+
+      <div class="order-category-grid umass-type-grid">
+        <button type="button" class="order-category-card" data-umass-order-type="mini">
+          <span class="order-category-icon" aria-hidden="true">🧁</span>
+          <span class="order-category-title">Mini Cakes</span>
+          <span class="order-category-copy">Same mini-cake flavors, box sizes, Tres Leches options, and packaging choices.</span>
+          <span class="order-category-action">Order Mini Cakes on Campus →</span>
+        </button>
+
+        <button type="button" class="order-category-card" data-umass-order-type="8x8">
+          <span class="order-category-icon" aria-hidden="true">🎂</span>
+          <span class="order-category-title">8×8 Cake</span>
+          <span class="order-category-copy">Same 8×8 flavors and add-ons with UMass Boston campus pickup.</span>
+          <span class="order-category-action">Order an 8×8 Cake on Campus →</span>
+        </button>
       </div>
     </div>
 
     <div id="miniOrderShell" class="order-form-shell" hidden>
-      <button type="button" class="back-to-order-types" data-back-to-order-types>← Back to order types</button>
+      <button type="button" class="back-to-order-types" data-back-to-order-types>← Back</button>
+      <div class="umass-mode-banner" data-umass-mode-banner hidden>
+        <strong>🎓 UMass Boston Campus Order</strong>
+        <span>For UMass Boston students &amp; professors only.</span>
+      </div>
 
     <form id="orderForm" hidden>
       <div class="form-intro">
@@ -298,7 +337,7 @@
 
       <fieldset class="pickup-fieldset">
         <legend>Owner-approved pickup date</legend>
-        <p class="calendar-help">Only highlighted dates are available. Use the arrows to view future months.</p>
+        <p class="calendar-help" id="miniPickupHelp">Only highlighted dates are available. Use the arrows to view future months.</p>
         <input type="hidden" id="pickupDate" required>
         <div id="pickupCalendar" class="pickup-calendar" aria-label="Pickup date calendar"></div>
         <p id="selectedPickupDate" class="selected-date">No pickup date selected.</p>
@@ -561,7 +600,11 @@
     </div>
 
     <div id="eightOrderShell" class="order-form-shell" hidden>
-      <button type="button" class="back-to-order-types" data-back-to-order-types>← Back to order types</button>
+      <button type="button" class="back-to-order-types" data-back-to-order-types>← Back</button>
+      <div class="umass-mode-banner" data-umass-mode-banner hidden>
+        <strong>🎓 UMass Boston Campus Order</strong>
+        <span>For UMass Boston students &amp; professors only.</span>
+      </div>
 
       <form id="eightOrderForm">
         <div class="eight-order-hero">
@@ -713,7 +756,7 @@
 
         <fieldset class="pickup-fieldset">
           <legend>Owner-approved pickup date</legend>
-          <p class="calendar-help">Only highlighted dates are available. Use the arrows to view future months.</p>
+          <p class="calendar-help" id="eightPickupHelp">Only highlighted dates are available. Use the arrows to view future months.</p>
           <input type="hidden" id="eightPickupDate" required>
           <div id="eightPickupCalendar" class="pickup-calendar" aria-label="8×8 cake pickup date calendar"></div>
           <p id="eightSelectedPickupDate" class="selected-date">No pickup date selected.</p>
@@ -987,11 +1030,15 @@ const NO_TRES_OPTION = ["Salted Caramel Tres Leches"];
 const state = {
   approvedDates: new Set(),
   dateTimeframes: {},
+  umassApprovedDates: new Set(),
+  umassDateTimeframes: {},
   soldOutWeeks: new Set(),
   selectedDate: "",
   visibleMonth: new Date(new Date().getFullYear(), new Date().getMonth(), 1),
   acceptingOrders: false
 };
+
+let orderContext = "regular";
 
 const eightState = {
   selectedDate: "",
@@ -1049,6 +1096,7 @@ const pickupTimeframeArea = document.getElementById("pickupTimeframeArea");
 const pickupTimeframeSelect = document.getElementById("pickupTimeframe");
 
 const orderCategoryChooser = document.getElementById("orderCategoryChooser");
+const umassOrderChooser = document.getElementById("umassOrderChooser");
 const miniOrderShell = document.getElementById("miniOrderShell");
 const eightOrderShell = document.getElementById("eightOrderShell");
 const eightOrderForm = document.getElementById("eightOrderForm");
@@ -1168,6 +1216,8 @@ async function loadOrderingState() {
     const data = await apiGet("orderingState");
     state.approvedDates = new Set(data.approvedDates || []);
     state.dateTimeframes = data.dateTimeframes || {};
+    state.umassApprovedDates = new Set(data.umassApprovedDates || []);
+    state.umassDateTimeframes = data.umassDateTimeframes || {};
     state.soldOutWeeks = new Set(data.soldOutWeeks || []);
 
 if (!data.acceptingOrders) {
@@ -1179,7 +1229,7 @@ if (!data.acceptingOrders) {
     ${data.statusMessage || "Ordering is temporarily paused."}
     <br><br>
     <span class="availability-pill">
-      💗 You can still view both order forms and plan your order below.
+      💗 You can still view all order forms and plan your order below.
     </span>
   `;
 
@@ -1187,6 +1237,7 @@ if (!data.acceptingOrders) {
   orderCategoryChooser.hidden = false;
   miniOrderShell.hidden = true;
   eightOrderShell.hidden = true;
+  umassOrderChooser.hidden = true;
 
   setOrderSubmissionAvailability(false);
 
@@ -1259,6 +1310,7 @@ text.innerHTML = `
     orderCategoryChooser.hidden = false;
     miniOrderShell.hidden = true;
     eightOrderShell.hidden = true;
+    umassOrderChooser.hidden = true;
 
     setOrderSubmissionAvailability(false);
 
@@ -1269,8 +1321,75 @@ text.innerHTML = `
 }
 
 
+function getActiveApprovedDates() {
+  return orderContext === "umass"
+    ? state.umassApprovedDates
+    : state.approvedDates;
+}
+
+function getActiveDateTimeframes() {
+  return orderContext === "umass"
+    ? state.umassDateTimeframes
+    : state.dateTimeframes;
+}
+
+function updatePickupModeCopy() {
+  const miniHelp = document.getElementById("miniPickupHelp");
+  const eightHelp = document.getElementById("eightPickupHelp");
+  const text =
+    orderContext === "umass"
+      ? "Only Tina-approved UMass Boston campus pickup dates are highlighted."
+      : "Only highlighted dates are available. Use the arrows to view future months.";
+
+  if (miniHelp) miniHelp.textContent = text;
+  if (eightHelp) eightHelp.textContent = text;
+
+  document.querySelectorAll("[data-umass-mode-banner]").forEach(banner => {
+    banner.hidden = orderContext !== "umass";
+  });
+}
+
+function resetActivePickupSelections() {
+  state.selectedDate = "";
+  pickupDateInput.value = "";
+  document.getElementById("selectedPickupDate").textContent =
+    "No pickup date selected.";
+  pickupTimeframeSelect.innerHTML =
+    '<option value="">Choose a pickup timeframe</option>';
+  pickupTimeframeArea.hidden = true;
+
+  eightState.selectedDate = "";
+  eightPickupDate.value = "";
+  eightSelectedPickupDate.textContent =
+    "No pickup date selected.";
+  eightPickupTimeframe.innerHTML =
+    '<option value="">Choose a pickup timeframe</option>';
+  eightPickupTimeframeArea.hidden = true;
+}
+
 function showOrderCategory(category) {
+  if (category === "umass") {
+    orderContext = "umass";
+    orderCategoryChooser.hidden = true;
+    miniOrderShell.hidden = true;
+    eightOrderShell.hidden = true;
+    umassOrderChooser.hidden = false;
+    updatePickupModeCopy();
+
+    document.getElementById("orders").scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+
+    return;
+  }
+
+  orderContext = "regular";
+  resetActivePickupSelections();
+  updatePickupModeCopy();
+
   orderCategoryChooser.hidden = true;
+  umassOrderChooser.hidden = true;
   miniOrderShell.hidden = category !== "mini";
   eightOrderShell.hidden = category !== "8x8";
 
@@ -1293,11 +1412,58 @@ function showOrderCategory(category) {
   });
 }
 
+function showUmassOrderType(type) {
+  orderContext = "umass";
+  resetActivePickupSelections();
+  updatePickupModeCopy();
+
+  orderCategoryChooser.hidden = true;
+  umassOrderChooser.hidden = true;
+  miniOrderShell.hidden = type !== "mini";
+  eightOrderShell.hidden = type !== "8x8";
+
+  if (type === "mini") {
+    renderBoxes();
+    renderCalendar();
+  } else {
+    populateEightFlavorOptions();
+    renderEightColorPickers();
+    updateEightAddonFields();
+    updateEightTotal();
+    renderEightCalendar();
+  }
+
+  document.getElementById("orders").scrollIntoView({
+    behavior: "smooth",
+    block: "start"
+  });
+}
+
 function showOrderChooser() {
+  const wasUmass = orderContext === "umass";
+
   miniOrderShell.hidden = true;
   eightOrderShell.hidden = true;
-  orderCategoryChooser.hidden = false;
+
+  if (wasUmass) {
+    umassOrderChooser.hidden = false;
+    orderCategoryChooser.hidden = true;
+  } else {
+    umassOrderChooser.hidden = true;
+    orderCategoryChooser.hidden = false;
+  }
+
   eightFormMessage.textContent = "";
+  formMessage.textContent = "";
+}
+
+function showMainOrderChooser() {
+  orderContext = "regular";
+  miniOrderShell.hidden = true;
+  eightOrderShell.hidden = true;
+  umassOrderChooser.hidden = true;
+  orderCategoryChooser.hidden = false;
+  updatePickupModeCopy();
 }
 
 document.querySelectorAll("[data-order-category]").forEach(button => {
@@ -1306,8 +1472,18 @@ document.querySelectorAll("[data-order-category]").forEach(button => {
   });
 });
 
+document.querySelectorAll("[data-umass-order-type]").forEach(button => {
+  button.addEventListener("click", () => {
+    showUmassOrderType(button.dataset.umassOrderType);
+  });
+});
+
 document.querySelectorAll("[data-back-to-order-types]").forEach(button => {
   button.addEventListener("click", showOrderChooser);
+});
+
+document.querySelectorAll("[data-back-to-main-order-types]").forEach(button => {
+  button.addEventListener("click", showMainOrderChooser);
 });
 
 function populateEightFlavorOptions() {
@@ -1478,7 +1654,7 @@ function renderEightCalendar() {
 
   for (let day = 1; day <= daysInMonth; day++) {
     const iso = formatIsoDate(new Date(year, month, day));
-    const approved = state.approvedDates.has(iso);
+    const approved = getActiveApprovedDates().has(iso);
     const weekSoldOut = state.soldOutWeeks.has(weekKeyFromIso(iso));
     const enabled = approved && !weekSoldOut;
     const selected = eightState.selectedDate === iso;
@@ -1542,7 +1718,7 @@ function renderEightCalendar() {
 
 function renderEightPickupTimeframes(isoDate) {
   const timeframes =
-    state.dateTimeframes[isoDate] || [];
+    getActiveDateTimeframes()[isoDate] || [];
 
   eightPickupTimeframe.innerHTML =
     '<option value="">Choose a pickup timeframe</option>';
@@ -1681,12 +1857,12 @@ function buildEightOrderData() {
 
   return {
     action: "submitOrder",
-    orderType: "8x8 Cake",
+    orderType: orderContext === "umass" ? "UMass Boston — 8×8 Cake" : "8×8 Cake",
     name: document.getElementById("eightName").value.trim(),
     phone: document.getElementById("eightPhone").value.trim(),
     email: document.getElementById("eightEmail").value.trim(),
     flavor: detailLines.join("\n"),
-    box: "8×8 Cake Order",
+    box: orderContext === "umass" ? "UMass Boston — 8×8 Cake Order" : "8×8 Cake Order",
     quantity: 1,
     total: calculateEightTotal().toFixed(2),
     payment: eightPayment.value,
@@ -1804,6 +1980,7 @@ eightOrderForm.addEventListener(
       updateEightPayment();
       renderEightCalendar();
 
+      orderContext = "regular";
       await loadOrderingState();
 
     } catch (error) {
@@ -2226,7 +2403,7 @@ function renderCalendar() {
 
   for (let day = 1; day <= daysInMonth; day++) {
     const iso = formatIsoDate(new Date(year, month, day));
-    const approved = state.approvedDates.has(iso);
+    const approved = getActiveApprovedDates().has(iso);
     const weekSoldOut = state.soldOutWeeks.has(weekKeyFromIso(iso));
     const enabled = approved && !weekSoldOut;
     const selected = state.selectedDate === iso;
@@ -2254,7 +2431,7 @@ function renderCalendar() {
 
 function renderPickupTimeframes(isoDate) {
   const timeframes =
-    state.dateTimeframes[isoDate] || [];
+    getActiveDateTimeframes()[isoDate] || [];
 
   pickupTimeframeSelect.innerHTML =
     '<option value="">Choose a pickup timeframe</option>';
@@ -2418,12 +2595,12 @@ function buildOrderData() {
 
   return {
     action: "submitOrder",
-    orderType: "Mini Cakes",
+    orderType: orderContext === "umass" ? "UMass Boston — Mini Cakes" : "Mini Cakes",
     name: document.getElementById("name").value.trim(),
     phone: document.getElementById("phone").value.trim(),
     email: document.getElementById("email").value.trim(),
     flavor: orderBoxes.join(" | "),
-    box: `${orderBoxes.length} box(es)`,
+    box: orderContext === "umass" ? `UMass Boston — Mini Cakes | ${orderBoxes.length} box(es)` : `${orderBoxes.length} box(es)`,
     quantity: totalCakes,
     total: total.toFixed(2),
     payment: paymentSelect.value,
