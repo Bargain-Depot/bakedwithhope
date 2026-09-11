@@ -2572,8 +2572,10 @@ function buildOrderData() {
       }
     }
 
+    let flavorSelections = [];
+
     if (!isSampler) {
-      const flavorSelections = selectedFlavorInputs.map(input => {
+      flavorSelections = selectedFlavorInputs.map(input => {
         const flavor = input.value;
         const quantityInput = document.querySelector(
           `input[data-quantity-for="${CSS.escape(flavor)}"][data-box="${boxNumber}"]`
@@ -2792,3 +2794,4 @@ loadOrderingState();
 
 </body>
 </html>
+   
