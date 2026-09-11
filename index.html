@@ -132,7 +132,7 @@
       </div>
 
       <div class="seasonal-flavor-info">
-        <span class="seasonal-kicker">Fall Seasonal Flavor</span>
+        <span class="seasonal-kicker">Fall Seasonal Flavor • +$1 per cake</span>
         <h3>Cider Donut</h3>
         <p>
           A cozy fall-inspired cake topped with creamy frosting,
@@ -1053,6 +1053,8 @@ const flavors = [
 ];
 
 const TRES_UPGRADE_PRICE = 1.00;
+const CIDER_DONUT_SURCHARGE = 1.00;
+const CIDER_DONUT_8X8_SURCHARGE = 3.00;
 const SALTED_CARAMEL_SINGLE_SURCHARGE = 0.50;
 const NO_TRES_OPTION = ["Salted Caramel Tres Leches"];
 
@@ -1521,7 +1523,10 @@ function populateEightFlavorOptions() {
   flavors.forEach(flavor => {
     const option = document.createElement("option");
     option.value = flavor;
-    option.textContent = flavor;
+    option.textContent =
+      flavor === "Cider Donut"
+        ? "Cider Donut (+$3 seasonal)"
+        : flavor;
     eightFlavorSelect.appendChild(option);
   });
 }
@@ -1627,6 +1632,10 @@ function updateEightAddonFields() {
 
 function calculateEightTotal() {
   let total = EIGHT_BASE_PRICE;
+
+  if (eightFlavorSelect.value === "Cider Donut") {
+    total += CIDER_DONUT_8X8_SURCHARGE;
+  }
 
   if (eightTresLeches.checked && !eightTresLeches.disabled) {
     total += EIGHT_TRES_PRICE;
@@ -1879,7 +1888,7 @@ function buildEightOrderData() {
     ).value.trim();
 
   const detailLines = [
-    `Flavor: ${eightFlavorSelect.value}`,
+    `Flavor: ${eightFlavorSelect.value}${eightFlavorSelect.value === "Cider Donut" ? " (+$3 seasonal)" : ""}`,
     `Occasion: ${occasion}`,
     `Add-ons: ${addOns.length ? addOns.join(" | ") : "None"}`
   ].filter(Boolean);
@@ -2227,6 +2236,20 @@ function calculateOrderTotal() {
       total += SALTED_CARAMEL_SINGLE_SURCHARGE;
     }
 
+    const ciderSelected = document.querySelector(
+      `input[name="flavor-${boxNumber}"][value="Cider Donut"]:checked`
+    );
+
+    if (ciderSelected) {
+      const ciderQuantity = document.querySelector(
+        `input[data-quantity-for="Cider Donut"][data-box="${boxNumber}"]`
+      );
+
+      total +=
+        Math.max(1, Number(ciderQuantity?.value || 1)) *
+        CIDER_DONUT_SURCHARGE;
+    }
+
     if (boxName === "Sampler Box") {
       const samplerTres = document.querySelector(
         `.sampler-tres-upgrade[data-box="${boxNumber}"]`
@@ -2568,7 +2591,11 @@ function buildOrderData() {
         return {
           flavor,
           quantity,
-          isTresUpgrade
+          isTresUpgrade,
+          seasonalSurcharge:
+            flavor === "Cider Donut"
+              ? quantity * CIDER_DONUT_SURCHARGE
+              : 0
         };
       });
 
@@ -2585,7 +2612,11 @@ function buildOrderData() {
 
       flavorText = flavorSelections.map(selection => {
         const upgradeLabel = selection.isTresUpgrade ? " — tres leches" : "";
-        return `${selection.flavor}: ${selection.quantity}${upgradeLabel}`;
+        const seasonalLabel =
+          selection.flavor === "Cider Donut"
+            ? " — +$1 seasonal each"
+            : "";
+        return `${selection.flavor}: ${selection.quantity}${upgradeLabel}${seasonalLabel}`;
       }).join(", ");
     }
 
@@ -2595,7 +2626,19 @@ function buildOrderData() {
         ? SALTED_CARAMEL_SINGLE_SURCHARGE
         : 0;
 
-    const boxTotal = Number(price) + tresCost + saltedSingleSurcharge;
+    const ciderDonutSurcharge =
+      !isSampler
+        ? flavorSelections.reduce(
+            (sum, selection) => sum + (selection.seasonalSurcharge || 0),
+            0
+          )
+        : 0;
+
+    const boxTotal =
+      Number(price) +
+      tresCost +
+      saltedSingleSurcharge +
+      ciderDonutSurcharge;
 
     orderBoxes.push(
       `Box ${boxNumber}: ${boxName} (${cakes} cakes) — ${flavorText} — ${money(boxTotal)}`
@@ -2749,4 +2792,3 @@ loadOrderingState();
 
 </body>
 </html>
-   
