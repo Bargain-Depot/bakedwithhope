@@ -6,7 +6,7 @@
 
   <title>Baked with Hope | Mini Cakes Made with Love</title>
 
-  <link rel="stylesheet" href="style.css?v=20">
+  <link rel="stylesheet" href="style.css?v=21">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -120,8 +120,36 @@
 </section>
 
 <section id="cakes" class="section cakes-section">
-  <p class="mini-label center">Cakes of the Week</p>
+  <p class="mini-label center">Cakes</p>
   <h2 class="center">Fresh flavors, made with hope.</h2>
+
+  <div class="seasonal-flavor-feature">
+    <div class="seasonal-banner">🍂 LIMITED TIME 🍂</div>
+
+    <div class="seasonal-flavor-content">
+      <div class="seasonal-flavor-image">
+        <img src="cider-donut.jpeg" alt="Cider Donut seasonal mini cakes">
+      </div>
+
+      <div class="seasonal-flavor-info">
+        <span class="seasonal-kicker">Fall Seasonal Flavor</span>
+        <h3>Cider Donut</h3>
+        <p>
+          A cozy fall-inspired cake topped with creamy frosting,
+          warm spice, and a cider donut.
+        </p>
+
+        <button
+          type="button"
+          class="cake-details-link seasonal-details-link"
+          data-flavor="Cider Donut"
+          data-description="A cozy fall-inspired cake topped with creamy frosting, warm spice, and a cider donut. Available for a limited time."
+        >
+          Cake Details
+        </button>
+      </div>
+    </div>
+  </div>
 
   <div class="flavor-menu">
 
@@ -1019,6 +1047,7 @@ const boxOptions = [
 ];
 
 const flavors = [
+  "Cider Donut",
   "Cookies & Cream", "Strawberry Crunch", "Biscoff", "Fruity Pebbles",
   "Cookie Monster", "Red Velvet", "Salted Caramel Tres Leches", "Funfetti"
 ];
